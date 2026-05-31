@@ -1,0 +1,1583 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Comprehensive Respiratory Disorders Branching Scenario</title>
+<style>
+:root{
+  --primary:#0b4f71; --secondary:#147c91; --danger:#a31621; --warning:#c46a00; --success:#1f7a4d;
+  --bg:#f4f7fb; --card:#ffffff; --border:#d4dde8; --ink:#1f2933; --muted:#64748b;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);font-family:Arial,Helvetica,sans-serif;color:var(--ink);line-height:1.55}
+.container{max-width:1180px;margin:auto;padding:18px}
+.screen{display:none;background:var(--card);border-radius:18px;padding:28px;margin:18px auto;box-shadow:0 5px 18px rgba(0,0,0,.08)}
+.screen.active{display:block}
+h1,h2,h3{color:var(--primary);line-height:1.2}
+.banner{background:linear-gradient(135deg,var(--primary),var(--secondary));color:white;border-radius:18px;padding:28px}
+.banner h1,.banner h2{color:white}
+.topbar{position:sticky;top:0;background:white;border:1px solid var(--border);border-radius:12px;padding:10px;margin-bottom:14px;z-index:5}
+.progress{font-weight:bold;color:var(--secondary)}
+.meter{height:10px;background:#e2e8f0;border-radius:999px;overflow:hidden;margin-top:6px}
+.meter-fill{height:100%;width:0%;background:var(--success);transition:.2s}
+.tag{display:inline-block;background:#eef7ff;color:var(--primary);padding:8px 12px;margin:4px;border-radius:999px;font-weight:bold}
+.box{border-left:8px solid var(--primary);background:#f8fbff;padding:16px;border-radius:12px;margin:16px 0}
+.alert{border-left-color:var(--danger);background:#fff2f2}
+.warn{border-left-color:var(--warning);background:#fff8ed}
+.good{border-left-color:var(--success);background:#eefbf4}
+.equity{border-left-color:#6d28d9;background:#f6f0ff}
+table{width:100%;border-collapse:collapse;margin:14px 0}
+th,td{border:1px solid var(--border);padding:10px;vertical-align:top}
+th{background:#eef2f7;text-align:left}
+.choice-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:12px;margin:14px 0}
+.choice-btn,.small-btn{border:none;border-radius:12px;padding:14px 16px;color:white;cursor:pointer;font-weight:bold;font-size:1rem;text-align:left}
+.choice-btn:hover,.small-btn:hover{filter:brightness(.95);transform:translateY(-1px)}
+.small-btn{background:var(--primary);display:inline-block;margin:8px 6px 8px 0;text-align:center}
+.c1{background:#1565c0}.c2{background:#7b1fa2}.c3{background:#ef6c00}.c4{background:#2e7d32}.c5{background:#c62828}.c6{background:#00838f}.c7{background:#5d4037}.c8{background:#ad1457}
+.feedback{display:none;margin-top:12px;padding:13px;border-radius:10px;background:#eef7ff;border-left:6px solid var(--primary)}
+.feedback.show{display:block}
+.drag-bank,.drop-zone,.priority-zone{min-height:90px;border:2px dashed #aab7c8;border-radius:13px;padding:12px;margin:10px 0;background:#fbfdff}
+.drop-zone.over,.priority-zone.over{background:#e8f7ee;border-color:var(--success)}
+.drag-item,.seq-item{background:white;border:2px solid #cbd5e1;border-radius:10px;padding:10px;margin:8px;display:inline-block;cursor:grab;font-weight:bold;box-shadow:0 2px 6px rgba(0,0,0,.06)}
+.seq-item{display:block}
+.grid2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+.grid3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+.grid4{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}
+@media(max-width:850px){.grid2,.grid3,.grid4{grid-template-columns:1fr}.screen{padding:18px}}
+textarea,input,select{width:100%;padding:10px;border:1px solid var(--border);border-radius:9px;font-family:Arial,Helvetica,sans-serif}
+textarea{min-height:75px}
+.note{color:var(--muted);font-size:.95rem}
+hr{border:none;border-top:1px solid var(--border);margin:24px 0}
+
+.case-subsection {
+  background:#fbfdff;
+  border:1px solid var(--border);
+  border-radius:14px;
+  padding:14px;
+  margin:16px 0;
+}
+.clinical-pearl {
+  background:#fff8ed;
+  border-left:7px solid var(--warning);
+  border-radius:12px;
+  padding:14px;
+  margin:14px 0;
+}
+.med-card {
+  background:#f8fbff;
+  border:1px solid var(--border);
+  border-radius:12px;
+  padding:12px;
+  margin:8px 0;
+}
+.inline-feedback {
+  font-size:.95rem;
+  color:var(--muted);
+}
+
+
+.interactive-panel {
+  background:#f7fbff;
+  border:1px solid var(--border);
+  border-radius:14px;
+  padding:14px;
+  margin:16px 0;
+}
+.three-col-table textarea {
+  min-height:58px;
+}
+.pharm-card {
+  border:1px solid var(--border);
+  border-radius:12px;
+  padding:12px;
+  background:#fff;
+  margin:10px 0;
+}
+.lab-high { background:#fff4f4; }
+.lab-watch { background:#fff8ed; }
+.lab-ok { background:#eefbf4; }
+
+
+.assessment-station {
+  background:#f9fcff;
+  border:1px solid var(--border);
+  border-radius:14px;
+  padding:14px;
+  margin:16px 0;
+}
+.technique-card {
+  background:#ffffff;
+  border:1px solid var(--border);
+  border-radius:12px;
+  padding:12px;
+  margin:10px 0;
+}
+.checklist label {
+  display:block;
+  margin:7px 0;
+  padding:8px;
+  background:#fff;
+  border:1px solid var(--border);
+  border-radius:9px;
+}
+
+
+.sdoh-card{
+  background:#fffdf7;
+  border:1px solid var(--border);
+  border-left:6px solid #d4a017;
+  border-radius:12px;
+  padding:14px;
+  margin:14px 0;
+}
+.ethics-card{
+  background:#f7fbff;
+  border:1px solid var(--border);
+  border-left:6px solid #2b7de9;
+  border-radius:12px;
+  padding:14px;
+  margin:14px 0;
+}
+
+
+.sdoh-option-card {
+  display:block;
+  width:100%;
+  text-align:left;
+  background:#ffffff;
+  border:2px solid var(--border);
+  color:var(--ink);
+  border-radius:12px;
+  padding:12px;
+  margin:8px 0;
+  cursor:pointer;
+  font-weight:bold;
+}
+.sdoh-option-card.selected {
+  background:#eef7ff;
+  border-color:var(--primary);
+}
+.sdoh-option-card.correct {
+  border-color:green;
+  background:#eefbf4;
+}
+.sdoh-option-card.incorrect {
+  border-color:#a31621;
+  background:#fff2f2;
+}
+.transition-plan {
+  background:#f1fff6;
+  border:1px solid var(--border);
+  border-left:7px solid var(--success);
+  border-radius:14px;
+  padding:14px;
+  margin:16px 0;
+}
+
+
+.flip-card-grid {
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+  gap:14px;
+  margin:14px 0;
+}
+.flip-card {
+  min-height:130px;
+  border:none;
+  border-radius:14px;
+  padding:0;
+  perspective:1000px;
+  background:transparent;
+  cursor:pointer;
+}
+.flip-inner {
+  position:relative;
+  width:100%;
+  min-height:130px;
+  transition:transform .5s;
+  transform-style:preserve-3d;
+}
+.flip-card.flipped .flip-inner {
+  transform:rotateY(180deg);
+}
+.flip-front, .flip-back {
+  position:absolute;
+  width:100%;
+  min-height:130px;
+  backface-visibility:hidden;
+  border-radius:14px;
+  padding:16px;
+  box-shadow:0 3px 10px rgba(0,0,0,.12);
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+}
+.flip-front {
+  background:#ffffff;
+  border:2px solid var(--border);
+  color:var(--ink);
+}
+.flip-back {
+  transform:rotateY(180deg);
+  color:white;
+  border:2px solid transparent;
+}
+.flip-back.correct {
+  background:#1f7a4d;
+}
+.flip-back.incorrect {
+  background:#a31621;
+}
+.flip-label {
+  font-size:.9rem;
+  opacity:.9;
+  margin-bottom:8px;
+  font-weight:bold;
+}
+.flip-rationale {
+  font-size:.95rem;
+  font-weight:normal;
+  margin-top:8px;
+}
+
+
+.interactive-panel .feedback, .sdoh-card .feedback, .ethics-card .feedback {
+  display:none;
+}
+.interactive-panel .feedback.show, .sdoh-card .feedback.show, .ethics-card .feedback.show {
+  display:block;
+}
+</style>
+</head>
+<body>
+<div class="container">
+
+<div class="screen active" id="intro">
+  <div class="banner">
+    <h1>The Breath Between Stability and Failure</h1>
+    <h2>Comprehensive Respiratory Disorders Branching Scenario</h2>
+    <p>You are the nurse assigned to the respiratory assessment and stabilization area. You will care for patients with asthma, COPD exacerbation, obstructive sleep apnea, and respiratory distress. Your goal is to recognize cues, interpret findings, prioritize care, take action, and evaluate outcomes.</p>
+  </div>
+  <div class="topbar">
+    <div class="progress">Score: <span class="score">0</span> | Safety misses: <span class="misses">0</span></div>
+    <div class="meter"><div class="meter-fill"></div></div>
+  </div>
+  <h3>Learning Outcomes Embedded</h3>
+  <span class="tag">Asthma pathophysiology</span><span class="tag">COPD pathophysiology</span><span class="tag">Sleep apnea</span><span class="tag">Focused respiratory assessment</span><span class="tag">Tactile fremitus</span><span class="tag">Voice sounds</span><span class="tag">Adventitious sounds</span><span class="tag">Bronchial hygiene</span><span class="tag">ABGs</span><span class="tag">Prioritize care</span>
+  <div class="box good">
+    <strong>Interactive levels included:</strong>
+    <ul>
+      <li>Colourful randomized branching answers</li>
+      <li>Drag-and-drop cue categorization</li>
+      <li>Indicator-to-meaning interpretation matching</li>
+      <li>Intervention priority sorting</li>
+      <li>Assessment change interpretation</li>
+      <li>Reflection response checks</li>
+      <li>Deterioration and escalation pathways</li>
+    </ul>
+  </div>
+  <button class="small-btn" onclick="go('triage')">Begin Scenario</button>
+</div>
+
+<div class="screen" id="triage">
+  <div class="topbar"><div class="progress">Score: <span class="score"></span> | Safety misses: <span class="misses"></span></div><div class="meter"><div class="meter-fill"></div></div></div>
+  <h1>Respiratory Triage: Prioritize Care</h1>
+  <p>Four patients require respiratory assessment. Choose who you would assess first. After you choose, the scenario will provide the rationale.</p>
+  <table>
+    <tr><th>Patient</th><th>Key cues</th><th>Initial concern</th></tr>
+    <tr><td>Sarah Johnson, 22</td><td>Asthma history, chest tightness, wheezing, using reliever more often</td><td>Requires assessment for asthma control/exacerbation</td></tr>
+    <tr><td>Barbara Taylor, 68</td><td>COPD history, worsening shortness of breath, increased cough</td><td>Requires assessment</td></tr>
+    <tr><td>Michael Roberts, 54</td><td>Suspected OSA, post-operative patient, sleepy after analgesia</td><td>Requires respiratory/sedation assessment</td></tr>
+    <tr><td>Amira Khan, 44</td><td>Fever, cough, pleuritic discomfort, fatigue</td><td>Requires focused respiratory assessment</td></tr>
+  </table>
+  
+<div class="interactive-panel">
+<h3>Environmental Triggers and Health Literacy</h3>
+
+<p>Sarah reports mould exposure at home and says she only uses her inhaler “when breathing gets bad.”</p>
+
+<table>
+<tr><th>Issue</th><th>Best nursing interpretation/action</th></tr>
+
+<tr>
+<td>Mould exposure</td>
+<td>
+<select data-answer="trigger">
+<option value="">Choose...</option>
+<option value="trigger">Environmental triggers may worsen asthma and should be assessed during teaching</option>
+<option value="irrelevant">Mould is unrelated to asthma</option>
+<option value="antibiotics">Mould exposure means antibiotics are needed</option>
+</select>
+</td>
+</tr>
+
+<tr>
+<td>ICS adherence</td>
+<td>
+<select data-answer="controller">
+<option value="">Choose...</option>
+<option value="controller">Teach that inhaled corticosteroids are controller medications and should be used consistently</option>
+<option value="prn">Teach ICS should only be used during attacks</option>
+<option value="stop">Teach ICS can be stopped once symptoms improve</option>
+</select>
+</td>
+</tr>
+
+<tr>
+<td>Inhaler education</td>
+<td>
+<select data-answer="teachback">
+<option value="">Choose...</option>
+<option value="teachback">Use demonstration, return-demonstration, spacer teaching, and teach-back</option>
+<option value="pamphlet">Give a pamphlet only</option>
+<option value="skip">Delay all education until discharge</option>
+</select>
+</td>
+</tr>
+
+</table>
+
+<button class="small-btn" onclick="checkSelects('asthma-assessment','fb-asthma-sdoh')">Check asthma psychosocial response</button>
+<div class="feedback" id="fb-asthma-sdoh"></div>
+</div>
+
+<div class="choice-grid answer-container">
+    <button class="choice-btn c1" onclick="score(15,'triage-copd');go('triage-correct')">Assess Barbara Taylor</button>
+    <button class="choice-btn c2" onclick="miss();go('triage-asthma-feedback')">Assess Sarah Johnson</button>
+    <button class="choice-btn c3" onclick="miss();go('triage-osa-feedback')">Assess Michael Roberts</button>
+    <button class="choice-btn c4" onclick="miss();go('triage-pneumonia-feedback')">Assess Amira Khan</button>
+  </div>
+</div>
+
+
+<div class="screen" id="triage-correct">
+  <div class="topbar"><div class="progress">Score: <span class="score"></span> | Safety misses: <span class="misses"></span></div><div class="meter"><div class="meter-fill"></div></div></div>
+  <h1>Triage Rationale</h1>
+  <div class="box good">
+    <p><strong>Correct priority:</strong> Barbara should be assessed first.</p>
+    <p><strong>Rationale:</strong> She has severe hypoxemia despite oxygen, marked tachypnea, tripod positioning, cyanosis, diminished breath sounds, and ABG evidence of hypercapnia/acidosis. These cues suggest severe respiratory distress and possible impending respiratory failure.</p>
+  </div>
+  <button class="small-btn" onclick="go('copd-assessment')">Continue</button>
+</div>
+
+<div class="screen" id="triage-asthma-feedback">
+  <div class="topbar"><div class="progress">Score: <span class="score"></span> | Safety misses: <span class="misses"></span></div><div class="meter"><div class="meter-fill"></div></div></div>
+  <h1>Triage Rationale</h1>
+  <div class="box warn">
+    <p>Sarah needs timely assessment, but she is not the most unstable patient in this triage set. Her asthma findings suggest moderate distress, while Barbara has severe hypoxemia despite oxygen and signs of possible respiratory failure.</p>
+  </div>
+  <button class="small-btn" onclick="go('copd-assessment')">Continue</button>
+</div>
+
+<div class="screen" id="triage-osa-feedback">
+  <div class="topbar"><div class="progress">Score: <span class="score"></span> | Safety misses: <span class="misses"></span></div><div class="meter"><div class="meter-fill"></div></div></div>
+  <h1>Triage Rationale</h1>
+  <div class="box warn">
+    <p>Michael’s post-operative OSA risk is important, especially after opioids. However, Barbara has the most immediate life-threatening breathing concern: severe hypoxemia despite oxygen with signs of impending respiratory failure.</p>
+  </div>
+  <button class="small-btn" onclick="go('copd-assessment')">Continue</button>
+</div>
+
+<div class="screen" id="triage-pneumonia-feedback">
+  <div class="topbar"><div class="progress">Score: <span class="score"></span> | Safety misses: <span class="misses"></span></div><div class="meter"><div class="meter-fill"></div></div></div>
+  <h1>Triage Rationale</h1>
+  <div class="box warn">
+    <p>Amira has important abnormal respiratory assessment findings, but she is not the first priority because Barbara’s oxygenation and ventilation are acutely unstable.</p>
+  </div>
+  <button class="small-btn" onclick="go('copd-assessment')">Continue</button>
+</div>
+
+
+
+
+
+
+<!-- COPD CASE -->
+
+<div class="screen" id="copd-assessment">
+  <div class="topbar"><div class="progress">Score: <span class="score"></span> | Safety misses: <span class="misses"></span></div><div class="meter"><div class="meter-fill"></div></div></div>
+  <h1>Case 1: Barbara Taylor — Acute Exacerbation of COPD</h1>
+  <div class="box alert">
+    <p><strong>Situation:</strong> Barbara is a 68-year-old with COPD and a 45-pack-year smoking history. She arrives with severe shortness of breath, increased productive cough, chest tightness, and fatigue. She is sitting in tripod position and appears frightened.</p>
+  </div>
+  <div class="grid2">
+    <div>
+      <h3>Subjective Data</h3>
+      <table>
+        <tr><td>Chief concern</td><td>“I can’t get the air out.”</td></tr>
+        <tr><td>Course</td><td>Worsening dyspnea and sputum for 3 days</td></tr>
+        <tr><td>Sputum</td><td>Increased amount; yellow-green</td></tr>
+        <tr><td>Chest symptoms</td><td>Tightness and pressure with exertion</td></tr>
+        <tr><td>Home oxygen</td><td>Uses “when I feel bad,” unsure flow rate</td></tr>
+        <tr><td>Self-management</td><td>Using salbutamol frequently; poor inhaler technique suspected</td></tr>
+        <tr><td>Social</td><td>Lives alone; limited transport; anxious about hospitalization</td></tr>
+      </table>
+    </div>
+    <div>
+      <h3>Objective Data</h3>
+      <table>
+        <tr><td>RR</td><td>36/min</td></tr>
+        <tr><td>SpO₂</td><td>82% on 3 L nasal prongs</td></tr>
+        <tr><td>HR/BP</td><td>124 bpm; 168/92</td></tr>
+        <tr><td>Appearance</td><td>Tripod position, accessory muscles, difficulty speaking</td></tr>
+        <tr><td>Auscultation</td><td>Diminished breath sounds with expiratory wheezes; prolonged expiration</td></tr>
+        <tr><td>ABG</td><td>pH 7.34, PaCO₂ 56, HCO₃ 26, PaO₂ 62</td></tr>
+        <tr><td>CBC</td><td>Hgb/Hct elevated; WBC mildly elevated</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <div class="box warn">
+    <strong>Prioritization prompt:</strong> Before starting teaching or discharge planning, determine whether Barbara is stable enough for routine care.
+  </div>
+
+  
+  <div class="case-subsection">
+    <h3>Pathophysiology Link: Why Barbara Is at Risk</h3>
+    <p>COPD is characterized by persistent airflow limitation, chronic inflammation, mucus production, air trapping, and impaired gas exchange. In an acute exacerbation, airway narrowing, bronchospasm, increased secretions, and ventilation-perfusion mismatch increase work of breathing and may cause hypoxemia and hypercapnia.</p>
+    <table>
+      <tr><th>Clinical cue</th><th>Pathophysiology link</th><th>Nursing significance</th></tr>
+      <tr><td>Prolonged expiration</td><td>Air trapping and obstructed exhalation</td><td>Assess fatigue and ventilation, not SpO₂ alone</td></tr>
+      <tr><td>Diminished breath sounds</td><td>Severely reduced airflow or hyperinflation</td><td>May be more ominous than loud wheezing</td></tr>
+      <tr><td>Elevated PaCO₂</td><td>Impaired ventilation and CO₂ retention</td><td>Monitor LOC and prepare to escalate if rising</td></tr>
+      <tr><td>Elevated Hgb/Hct</td><td>Possible secondary polycythemia from chronic hypoxemia</td><td>Signals chronic under-oxygenation and thrombosis risk</td></tr>
+    </table>
+  </div>
+
+  <div class="clinical-pearl">
+    <strong>Clinical Pearl:</strong> In COPD, improving oxygen saturation does not always mean the patient is improving. The nurse must also evaluate respiratory rate, work of breathing, mental status, ABGs, breath sounds, and fatigue.
+  </div>
+
+  <div class="case-subsection">
+    <h3>Focused Respiratory Assessment Prompt</h3>
+    <p>Complete a focused respiratory assessment using the required sequence: inspect, palpate, percuss, then auscultate.</p>
+    <table>
+      <tr><th>Assessment step</th><th>Expected COPD/AECOPD findings to consider</th><th>Student notes</th></tr>
+      <tr><td>Inspection</td><td>Tripod position, accessory muscle use, prolonged expiration, barrel chest, cyanosis assessed across skin tones</td><td><textarea placeholder="What do you see?"></textarea></td></tr>
+      <tr><td>Palpation</td><td>Chest expansion may be reduced; tactile fremitus may be decreased with emphysema/hyperinflation</td><td><textarea placeholder="What do you feel?"></textarea></td></tr>
+      <tr><td>Percussion</td><td>Hyperresonance may suggest air trapping/hyperinflation</td><td><textarea placeholder="What do you hear with percussion?"></textarea></td></tr>
+      <tr><td>Auscultation</td><td>Diminished sounds, wheezes, rhonchi, prolonged expiration</td><td><textarea placeholder="What do you hear?"></textarea></td></tr>
+    </table>
+  </div>
+
+<h3>Drag Red Flags Into the “Immediate Escalation Concern” Zone</h3>
+  <div class="drag-bank">
+    <span class="drag-item" draggable="true" data-answer="redflag" id="c1a">RR 36/min</span>
+    <span class="drag-item" draggable="true" data-answer="redflag" id="c1b">SpO₂ 82% on 3L NP</span>
+    <span class="drag-item" draggable="true" data-answer="redflag" id="c1c">Accessory muscle use and cyanosis</span>
+    <span class="drag-item" draggable="true" data-answer="redflag" id="c1d">Diminished breath sounds</span>
+    <span class="drag-item" draggable="true" data-answer="redflag" id="c1e">pH 7.34 and PaCO₂ 56</span>
+    <span class="drag-item" draggable="true" data-answer="support" id="c1f">Lives alone</span>
+    <span class="drag-item" draggable="true" data-answer="support" id="c1g">Poor inhaler technique</span>
+  </div>
+  <div class="grid2">
+    <div class="drop-zone" data-accept="redflag" id="copd-red"><h3>Immediate escalation concern</h3></div>
+    <div class="drop-zone" data-accept="support" id="copd-support"><h3>Important, but not first priority</h3></div>
+  </div>
+  <button class="small-btn" onclick="checkDrop(['copd-red','copd-support'],'fb-copd-cues',20)">Check cue prioritization</button>
+  <div class="feedback" id="fb-copd-cues"></div>
+
+  <h3>Focused Respiratory Assessment Interpretation</h3>
+  <table>
+    <tr><th>Finding</th><th>Interpretation</th></tr>
+    <tr><td>Prolonged expiration</td><td><select data-answer="airtrapping"><option value="">Choose...</option><option value="airtrapping">Air trapping and obstructed exhalation</option><option value="consolidation">Lobar consolidation</option><option value="normal">Normal older adult finding</option></select></td></tr>
+    <tr><td>Hyperresonance on percussion</td><td><select data-answer="hyperinflation"><option value="">Choose...</option><option value="hyperinflation">Hyperinflation/air trapping</option><option value="fluid">Pleural fluid</option><option value="atelectasis">Dullness from atelectasis only</option></select></td></tr>
+    <tr><td>Reduced tactile fremitus</td><td><select data-answer="emphysema"><option value="">Choose...</option><option value="emphysema">Less tissue density/air trapping as seen with emphysema</option><option value="pneumonia">Increased consolidation</option><option value="cardiac">Cardiac ischemia</option></select></td></tr>
+    <tr><td>Diminished breath sounds</td><td><select data-answer="poorairflow"><option value="">Choose...</option><option value="poorairflow">Poor airflow and possible severe bronchospasm/air trapping</option><option value="improved">Improved ventilation</option><option value="normal">Normal finding</option></select></td></tr>
+  </table>
+  <button class="small-btn" onclick="checkSelects('copd-assessment','fb-copd-interpret',20)">Check assessment interpretation</button>
+  <div class="feedback" id="fb-copd-interpret"></div>
+
+  <h3>Organize Nursing Interventions by Priority</h3>
+  <p class="note">Drag each intervention to the safest priority group.</p>
+  <div class="drag-bank seq-bank">
+    <div class="seq-item" draggable="true" data-answer="immediate" id="cseq1">Place in high Fowler’s/tripod-supported position</div>
+    <div class="seq-item" draggable="true" data-answer="immediate" id="cseq2">Titrate oxygen carefully and monitor response</div>
+    <div class="seq-item" draggable="true" data-answer="immediate" id="cseq3">Notify provider/RRT due to severe distress and poor oxygenation</div>
+    <div class="seq-item" draggable="true" data-answer="time" id="cseq4">Administer bronchodilator therapy as ordered</div>
+    <div class="seq-item" draggable="true" data-answer="time" id="cseq5">Administer systemic corticosteroid as ordered</div>
+    <div class="seq-item" draggable="true" data-answer="time" id="cseq6">Obtain/review ABG, CXR, sputum culture, ECG if chest tightness persists</div>
+    <div class="seq-item" draggable="true" data-answer="ongoing" id="cseq7">Reassess RR, WOB, SpO₂, breath sounds, LOC in 30–60 minutes</div>
+    <div class="seq-item" draggable="true" data-answer="ongoing" id="cseq8">Plan smoking cessation, pulmonary rehab, vaccines, inhaler teaching</div>
+  </div>
+  <div class="grid3">
+    <div class="priority-zone" data-accept="immediate" id="cpri1"><h3>Immediate ABC priorities</h3></div>
+    <div class="priority-zone" data-accept="time" id="cpri2"><h3>Time-sensitive diagnostics/medications</h3></div>
+    <div class="priority-zone" data-accept="ongoing" id="cpri3"><h3>Ongoing reassessment/teaching</h3></div>
+  </div>
+  <button class="small-btn" onclick="checkDrop(['cpri1','cpri2','cpri3'],'fb-copd-priority',20)">Check intervention priorities</button>
+  <div class="feedback" id="fb-copd-priority"></div>
+  <div class="case-subsection">
+    <h3>COPD Treatment and Nursing Considerations</h3>
+    <div class="grid2">
+      <div class="med-card"><strong>Short-acting bronchodilator:</strong> Relieves bronchospasm. Monitor HR, tremor, and response in breath sounds/work of breathing.</div>
+      <div class="med-card"><strong>Anticholinergic bronchodilator:</strong> Reduces bronchoconstriction and mucus effects. Assess dry mouth and inhaler technique.</div>
+      <div class="med-card"><strong>Systemic corticosteroid:</strong> Reduces airway inflammation. Monitor blood glucose, mood changes, infection risk, and sleep disturbance.</div>
+      <div class="med-card"><strong>Antibiotics:</strong> May be ordered when sputum becomes purulent or infection is suspected. Collect cultures if ordered without delaying care.</div>
+    </div>
+    <h4>Bronchial hygiene and breathing strategies</h4>
+    <ul>
+      <li>Use pursed-lip breathing to prolong exhalation and reduce air trapping.</li>
+      <li>Use SOS for SOB: stop, position, relax shoulders, breathe out slowly through pursed lips, then slow breathing.</li>
+      <li>Encourage effective cough/huff cough if secretions are present.</li>
+      <li>Hydration may help secretion clearance if not contraindicated by heart failure or fluid restriction.</li>
+    </ul>
+  </div>
+
+
+  
+  <div class="interactive-panel" id="copdSignificance">
+    <h3>Student Interpretation: Nursing Significance and Nursing Implications</h3>
+    <p class="note">For each finding, explain what it means, why it matters, and what the nurse should do next.</p>
+    <table class="three-col-table">
+      <tr><th>Finding</th><th>Nursing significance</th><th>Nursing implication / anticipated action</th></tr>
+      <tr>
+        <td>RR 36 with tripod position and accessory muscle use</td>
+        <td><textarea data-keywords="work of breathing|distress|fatigue|respiratory failure" placeholder="What does this tell you?"></textarea></td>
+        <td><textarea data-keywords="position|oxygen|reassess|provider|rapid response" placeholder="What should the nurse anticipate or do?"></textarea></td>
+      </tr>
+      <tr>
+        <td>SpO₂ 82% on 3 L nasal prongs</td>
+        <td><textarea data-keywords="hypoxemia|oxygenation|severe|distress" placeholder="Why is this concerning?"></textarea></td>
+        <td><textarea data-keywords="controlled oxygen|titrate|monitor|ABG|escalate" placeholder="What intervention/reassessment is needed?"></textarea></td>
+      </tr>
+      <tr>
+        <td>pH 7.34, PaCO₂ 56, HCO₃ 26</td>
+        <td><textarea data-keywords="respiratory acidosis|hypercapnia|CO2|ventilation" placeholder="Interpret the ABG."></textarea></td>
+        <td><textarea data-keywords="monitor LOC|repeat ABG|BiPAP|ventilation|escalate" placeholder="What should the nurse anticipate?"></textarea></td>
+      </tr>
+      <tr>
+        <td>Hgb/Hct elevated</td>
+        <td><textarea data-keywords="polycythemia|chronic hypoxemia|viscosity|thrombosis" placeholder="What does this suggest?"></textarea></td>
+        <td><textarea data-keywords="home oxygen|LTOT|monitor|thrombosis|follow-up" placeholder="What long-term care issue should be considered?"></textarea></td>
+      </tr>
+    </table>
+    <button class="small-btn" onclick="checkTextGroup('copdSignificance','fb-copd-significance')">Check nursing significance responses</button>
+    <div class="feedback" id="fb-copd-significance"></div>
+  </div>
+
+  <div class="interactive-panel">
+    <h3>COPD Lab and Diagnostic Interpretation</h3>
+    <table>
+      <tr><th>Result</th><th>Interpretation</th><th>Nursing implication</th></tr>
+      <tr class="lab-high">
+        <td>pH 7.34</td>
+        <td><select data-answer="acid"><option value="">Choose...</option><option value="normal">Normal acid-base status</option><option value="acid">Low/acidic; concerning respiratory acidosis pattern</option><option value="alk">Metabolic alkalosis</option></select></td>
+        <td><select data-answer="trend"><option value="">Choose...</option><option value="trend">Trend ABGs and watch for falling pH</option><option value="ignore">No reassessment needed</option><option value="discharge">Prepare discharge immediately</option></select></td>
+      </tr>
+      <tr class="lab-high">
+        <td>PaCO₂ 56 mmHg</td>
+        <td><select data-answer="hypercapnia"><option value="">Choose...</option><option value="hypoxemia">Low oxygen only</option><option value="hypercapnia">Hypercapnia from impaired ventilation</option><option value="normal">Normal ventilation</option></select></td>
+        <td><select data-answer="loc"><option value="">Choose...</option><option value="loc">Assess LOC/somnolence and ventilation</option><option value="fluid">Give large fluid bolus</option><option value="sabaonly">Only teach SABA use</option></select></td>
+      </tr>
+      <tr class="lab-watch">
+        <td>PaO₂ 62 mmHg</td>
+        <td><select data-answer="hypoxemia"><option value="">Choose...</option><option value="hypoxemia">Hypoxemia</option><option value="hyperoxygen">Excess oxygenation</option><option value="normal">Normal oxygenation</option></select></td>
+        <td><select data-answer="controlled"><option value="">Choose...</option><option value="controlled">Controlled oxygen and close reassessment</option><option value="none">No oxygen concern</option><option value="sedate">Sedate to reduce distress</option></select></td>
+      </tr>
+      <tr class="lab-watch">
+        <td>WBC mildly elevated + purulent sputum</td>
+        <td><select data-answer="infection"><option value="">Choose...</option><option value="infection">Possible infectious trigger of AECOPD</option><option value="osa">Sleep apnea</option><option value="asthma">Well-controlled asthma</option></select></td>
+        <td><select data-answer="culture"><option value="">Choose...</option><option value="culture">Anticipate sputum culture/antibiotic consideration if ordered</option><option value="stop">Stop bronchodilators</option><option value="ignore">Ignore sputum changes</option></select></td>
+      </tr>
+    </table>
+    <button class="small-btn" onclick="checkLabTable('copd-assessment','fb-copd-labs')">Check COPD labs/diagnostics</button>
+    <div class="feedback" id="fb-copd-labs"></div>
+  </div>
+
+  <div class="interactive-panel">
+    <h3>COPD Pharmacology and Treatment Matching</h3>
+    <table>
+      <tr><th>Treatment</th><th>Purpose</th><th>Nursing considerations</th></tr>
+      <tr>
+        <td>Short-acting beta₂ agonist</td>
+        <td><select data-answer="bronchodilation"><option value="">Choose...</option><option value="bronchodilation">Rapid bronchodilation</option><option value="infection">Treat bacterial infection</option><option value="sedation">Sedate patient</option></select></td>
+        <td><select data-answer="hr"><option value="">Choose...</option><option value="hr">Monitor HR, tremor, response</option><option value="mouth">Rinse mouth for thrush only</option><option value="cpap">Apply CPAP only</option></select></td>
+      </tr>
+      <tr>
+        <td>Systemic corticosteroid</td>
+        <td><select data-answer="inflammation"><option value="">Choose...</option><option value="inflammation">Reduce airway inflammation</option><option value="instant">Instant rescue bronchodilation</option><option value="thrombus">Treat thrombosis</option></select></td>
+        <td><select data-answer="glucose"><option value="">Choose...</option><option value="glucose">Monitor glucose, mood, infection risk</option><option value="noassess">No monitoring needed</option><option value="opioid">Give with opioids</option></select></td>
+      </tr>
+      <tr>
+        <td>Controlled oxygen / Venturi if ordered</td>
+        <td><select data-answer="oxygenation"><option value="">Choose...</option><option value="oxygenation">Improve oxygenation with precise delivery</option><option value="antibiotic">Kill bacteria</option><option value="mucus">Thin mucus only</option></select></td>
+        <td><select data-answer="abg"><option value="">Choose...</option><option value="abg">Monitor SpO₂, ABGs, LOC, WOB</option><option value="unlimited">Increase without reassessment</option><option value="stop">Stop bronchodilators</option></select></td>
+      </tr>
+      <tr>
+        <td>BiPAP/NIV</td>
+        <td><select data-answer="ventilation"><option value="">Choose...</option><option value="ventilation">Support ventilation and reduce work of breathing</option><option value="controller">Daily asthma controller</option><option value="pain">Primary pain control</option></select></td>
+        <td><select data-answer="escalation"><option value="">Choose...</option><option value="escalation">Requires close monitoring/escalation pathway</option><option value="homeonly">Only used at home</option><option value="no">No reassessment needed</option></select></td>
+      </tr>
+    </table>
+    <button class="small-btn" onclick="checkSelects('copd-assessment','fb-copd-pharm')">Check COPD treatment/pharmacology</button>
+    <div class="feedback" id="fb-copd-pharm"></div>
+  </div>
+
+<div class="interactive-panel">
+<h3>Psychosocial / SDOH Considerations</h3>
+
+<p><strong>Barbara states:</strong> “Sometimes I skip my inhalers because they’re expensive, and I hate people judging me for smoking.”</p>
+
+<table>
+<tr>
+<th>Concern</th>
+<th>Nursing significance / implication</th>
+</tr>
+
+<tr>
+<td>Medication cost barriers</td>
+<td>
+<select data-answer="resources">
+<option value="">Choose...</option>
+<option value="resources">Assess affordability, involve pharmacy/social work, and confirm access before discharge</option>
+<option value="ignore">Ignore because oxygen is the only priority</option>
+<option value="lecture">Tell the patient to “just take the medication properly”</option>
+</select>
+</td>
+</tr>
+
+<tr>
+<td>Smoking-related stigma</td>
+<td>
+<select data-answer="nonjudgmental">
+<option value="">Choose...</option>
+<option value="nonjudgmental">Use nonjudgmental communication and offer cessation supports respectfully</option>
+<option value="blame">Focus on personal blame for disease</option>
+<option value="avoid">Avoid discussing smoking entirely</option>
+</select>
+</td>
+</tr>
+
+<tr>
+<td>Assessment across skin tones</td>
+<td>
+<select data-answer="multiple">
+<option value="">Choose...</option>
+<option value="multiple">Assess mucosa, nail beds, capillary refill, work of breathing, SpO₂ trends, and mental status</option>
+<option value="colour">Rely only on skin colour</option>
+<option value="skip">Skip perfusion assessment in darker skin tones</option>
+</select>
+</td>
+</tr>
+</table>
+
+<button class="small-btn" onclick="checkSelects('copd-assessment','fb-copd-sdoh')">Check psychosocial/SDOH response</button>
+<div class="feedback" id="fb-copd-sdoh"></div>
+</div>
+
+<h3>Branching Decision: What should you do next?</h3>
+  <div class="choice-grid answer-container">
+    <button class="choice-btn c1" onclick="score(15,'copd-safe');go('copd-reassess')">Start controlled oxygen support, bronchodilator/steroid orders, urgent reassessment, and prepare for escalation if CO₂ rises</button>
+    <button class="choice-btn c5" onclick="miss();go('copd-worse')">Increase oxygen aggressively without reassessment because saturation is low</button>
+    <button class="choice-btn c3" onclick="miss();go('copd-delay')">Wait for the provider because COPD patients are usually chronically low</button>
+  </div>
+</div>
+
+<div class="screen" id="copd-delay">
+  <div class="topbar"><div class="progress">Score: <span class="score"></span> | Safety misses: <span class="misses"></span></div><div class="meter"><div class="meter-fill"></div></div></div>
+  <h1>Unsafe Delay</h1>
+  <div class="box alert">Barbara has severe respiratory distress. Waiting without intervention risks fatigue, CO₂ narcosis, respiratory arrest, dysrhythmia, or cardiac ischemia.</div>
+  <button class="small-btn" onclick="go('copd-assessment')">Return to COPD assessment</button>
+</div>
+
+<div class="screen" id="copd-reassess">
+  <div class="topbar"><div class="progress">Score: <span class="score"></span> | Safety misses: <span class="misses"></span></div><div class="meter"><div class="meter-fill"></div></div></div>
+  <h1>COPD Reassessment: Interpret Change</h1>
+  <table>
+    <tr><th>Indicator</th><th>Before</th><th>30–45 min after interventions</th></tr>
+    <tr><td>SpO₂</td><td>82% on 3L NP</td><td>89–90% on controlled oxygen</td></tr>
+    <tr><td>RR</td><td>36</td><td>30</td></tr>
+    <tr><td>Breath sounds</td><td>Diminished + wheezes</td><td>Wheezes audible; airflow slightly improved</td></tr>
+    <tr><td>Mental status</td><td>Anxious, alert</td><td>Very fatigued, slow to respond</td></tr>
+    <tr><td>ABG repeat</td><td>pH 7.34, PaCO₂ 56</td><td>pH 7.30, PaCO₂ 63</td></tr>
+    <tr><td>Chest tightness</td><td>Present</td><td>Still present with diaphoresis</td></tr>
+  </table>
+  <h3>Interpret Changes in Assessment</h3>
+  <table>
+    <tr><th>Change</th><th>Meaning</th><th>What should the nurse anticipate?</th></tr>
+    <tr><td>SpO₂ improves but PaCO₂ rises and pH drops</td><td><select data-answer="unresolved"><option value="">Choose...</option><option value="unresolved">Oxygenation partly improved but ventilation is worsening</option><option value="resolved">Fully stable</option><option value="ignore">Ignore ABG if SpO₂ improved</option></select></td><td><textarea id="copdAction"></textarea><button class="small-btn" onclick="checkClinicalReasoning('copdAction',['BiPAP','escalate','respiratory failure','ABG','monitor','provider','ventilation'],'copdActionFB','<strong>Strong clinical reasoning.</strong> You recognized worsening ventilation despite partial oxygenation improvement.','Your interpretation needs more detail.')">Check Interpretation</button><div class="feedback" id="copdActionFB"></div></td></tr>
+    <tr><td>Increasing fatigue/slow responses</td><td><select data-answer="narcosis"><option value="">Choose...</option><option value="narcosis">Possible CO₂ retention/impending failure</option><option value="rest">Expected rest after treatment</option><option value="discharge">Ready for discharge teaching</option></select></td><td><textarea id="copdFatigue"></textarea><button class="small-btn" onclick="checkClinicalReasoning('copdFatigue',['CO2','fatigue','respiratory failure','ventilation','narcosis','drowsy'],'copdFatigueFB','<strong>Correct.</strong> Fatigue may indicate failing respiratory effort and CO₂ retention.','Consider why decreased responsiveness and fatigue are concerning.')">Check Interpretation</button><div class="feedback" id="copdFatigueFB"></div></td></tr>
+    <tr><td>Chest tightness + tachycardia + diaphoresis</td><td><select data-answer="cardiac"><option value="">Choose...</option><option value="cardiac">Rule out cardiac ischemia/dysrhythmia/right heart strain</option><option value="asthma">Only asthma</option><option value="none">No further action needed</option></select></td><td><textarea id="copdCardiac"></textarea><button class="small-btn" onclick="checkClinicalReasoning('copdCardiac',['ECG','troponin','monitor','telemetry','cardiac','ischemia'],'copdCardiacFB','<strong>Excellent.</strong> You recognized possible cardiac strain or ischemia during respiratory distress.','Add cardiac monitoring and diagnostic considerations.')">Check Interpretation</button><div class="feedback" id="copdCardiacFB"></div></td></tr>
+  </table>
+  <button class="small-btn" onclick="checkSelects('copd-reassess','fb-copd-change',20)">Check interpretation of changes</button>
+  <div class="feedback" id="fb-copd-change"></div>
+
+  <h3>Next Priority</h3>
+  <div class="choice-grid answer-container">
+    <button class="choice-btn c5" onclick="score(20,'copd-escalate');go('copd-escalation')">Call RRT/provider, anticipate NIV/BiPAP, obtain ECG/troponin, continue close respiratory and neurologic monitoring</button>
+    <button class="choice-btn c2" onclick="miss();go('copd-worse')">Reassure her because SpO₂ is better</button>
+    <button class="choice-btn c3" onclick="miss();go('copd-worse')">Give sedating medication to reduce anxiety</button>
+  </div>
+</div>
+
+<div class="screen" id="copd-worse">
+  <div class="topbar"><div class="progress">Score: <span class="score"></span> | Safety misses: <span class="misses"></span></div><div class="meter"><div class="meter-fill"></div></div></div>
+  <h1>COPD Deterioration: CO₂ Narcosis / Respiratory Failure Risk</h1>
+  <div class="box alert">
+    Barbara becomes somnolent. Respiratory rate falls to 10/min. Repeat ABG: pH 7.25, PaCO₂ 72. Breath sounds are very diminished.
+  </div>
+  <p><strong>Teaching point:</strong> A falling respiratory rate with drowsiness is more concerning than tachypnea because it can signal fatigue and failing ventilation.</p>
+  <button class="small-btn" onclick="go('copd-escalation')">Escalate now</button>
+</div>
+
+<div class="screen" id="copd-escalation">
+  <div class="topbar"><div class="progress">Score: <span class="score"></span> | Safety misses: <span class="misses"></span></div><div class="meter"><div class="meter-fill"></div></div></div>
+  <h1>COPD Escalation and Stabilization</h1>
+  <div class="box good">Barbara is transferred to a monitored area. NIV/BiPAP is initiated per provider/RT support. ECG is obtained and troponin is ordered due to chest tightness and diaphoresis.</div>
+  <h3>Complete SBAR</h3>
+  <div class="grid2">
+    <textarea placeholder="S — Situation"></textarea>
+    <textarea placeholder="B — Background"></textarea>
+    <textarea placeholder="A — Assessment"></textarea>
+    <textarea placeholder="R — Recommendation"></textarea>
+  </div>
+  <button class="small-btn" onclick="showRubric('fb-copd-sbar','Include severe AECOPD, RR/SpO₂/ABG trends, fatigue/LOC changes, response to treatment, concern for respiratory failure, need for NIV/ICU-level monitoring, and cardiac rule-out.')">Check SBAR guidance</button>
+  <div class="feedback" id="fb-copd-sbar"></div>
+  <button class="small-btn" onclick="go('copd-transition')">Continue to COPD transition planning</button>
+</div>
+
+
+<div class="screen" id="copd-transition">
+  <div class="topbar"><div class="progress">Score: <span class="score"></span> | Safety misses: <span class="misses"></span></div><div class="meter"><div class="meter-fill"></div></div></div>
+  <h1>COPD Stabilization and Transition Planning</h1>
+
+  <div class="transition-plan">
+    <p>Barbara improves after monitored care and NIV/BiPAP. Her work of breathing decreases, pH improves, PaCO₂ begins trending down, SpO₂ is maintained within the ordered target range, and her mental status returns to baseline. The team begins planning transition from monitored care to the medical unit and then home/community follow-up.</p>
+  </div>
+
+  <h3>Discharge / Community Transition Priorities</h3>
+  <table>
+    <tr><th>Transition need</th><th>Best nursing action</th></tr>
+    <tr><td>Persistent COPD symptoms and repeated exacerbations</td><td><select data-answer="pulmrehab"><option value="">Choose...</option><option value="pulmrehab">Refer to pulmonary rehabilitation and COPD education</option><option value="ignore">No follow-up needed after stabilization</option><option value="bedrest">Advise strict bedrest indefinitely</option></select></td></tr>
+    <tr><td>Possible chronic hypoxemia / elevated Hgb-Hct</td><td><select data-answer="oxygenassess"><option value="">Choose...</option><option value="oxygenassess">Assess for home oxygen/LTOT eligibility and safe oxygen use</option><option value="none">Stop oxygen assessment entirely</option><option value="sedation">Use sedatives for dyspnea</option></select></td></tr>
+    <tr><td>Poor inhaler technique</td><td><select data-answer="teachback"><option value="">Choose...</option><option value="teachback">Demonstrate, return-demonstrate, and use teach-back</option><option value="pamphlet">Give pamphlet only</option><option value="skip">Skip teaching</option></select></td></tr>
+    <tr><td>Lives alone with limited support</td><td><select data-answer="community"><option value="">Choose...</option><option value="community">Assess home supports, community resources, transport, and follow-up access</option><option value="blame">Document non-compliance</option><option value="ignore">Ignore because it is not respiratory</option></select></td></tr>
+    <tr><td>Risk of future infection</td><td><select data-answer="vaccines"><option value="">Choose...</option><option value="vaccines">Review influenza, COVID-19, and pneumococcal vaccines as appropriate</option><option value="antibioticsforever">Teach lifelong antibiotics for all patients</option><option value="none">No prevention teaching</option></select></td></tr>
+  </table>
+  <button class="small-btn" onclick="checkSelects('copd-transition','fb-copd-transition')">Check COPD transition plan</button>
+  <div class="feedback" id="fb-copd-transition"></div>
+
+  <button class="small-btn" onclick="go('asthma-assessment')">Continue to Asthma Case</button>
+</div>
+
+<!-- ASTHMA CASE -->
+<div class="screen" id="asthma-assessment">
+  <div class="topbar"><div class="progress">Score: <span class="score"></span> | Safety misses: <span class="misses"></span></div><div class="meter"><div class="meter-fill"></div></div></div>
+  <h1>Case 2: Sarah Johnson — Asthma Exacerbation</h1>
+  <div class="box">
+    <p>Sarah is a 22-year-old university student with asthma and seasonal allergies. She has been using salbutamol several times this week and sometimes skips fluticasone when she feels well. Symptoms are worse at night and early morning.</p>
+  </div>
+  <table>
+    <tr><th>Assessment</th><th>Finding</th><th>Student interpretation</th></tr>
+    <tr><td>RR</td><td>26/min</td><td><input placeholder="What does this suggest?"></td></tr>
+    <tr><td>SpO₂</td><td>92% RA</td><td><input placeholder="Oxygenation concern?"></td></tr>
+    <tr><td>PEF</td><td>55% personal best</td><td><input placeholder="Severity?"></td></tr>
+    <tr><td>Breath sounds</td><td>Expiratory wheezing, prolonged expiration</td><td><input placeholder="Pathophysiology?"></td></tr>
+    <tr><td>Speech</td><td>Short phrases</td><td><input placeholder="Work of breathing?"></td></tr>
+  </table>
+  
+  <div class="case-subsection">
+    <h3>Asthma Pathophysiology Link</h3>
+    <p>Asthma is a chronic inflammatory disorder of the airways. Trigger exposure can lead to mast cell activation, inflammatory mediator release, bronchoconstriction, mucosal edema, mucus production, and airway hyperresponsiveness. These changes narrow the airways and cause wheezing, chest tightness, cough, dyspnea, and prolonged expiration.</p>
+    <table>
+      <tr><th>Trigger or pattern</th><th>Clinical meaning</th><th>Nursing implication</th></tr>
+      <tr><td>Seasonal allergies</td><td>Allergic inflammation can worsen airway hyperresponsiveness</td><td>Teach trigger reduction and controller adherence</td></tr>
+      <tr><td>Nighttime symptoms</td><td>Suggests poor asthma control</td><td>Review severity classification and action plan</td></tr>
+      <tr><td>Frequent SABA use</td><td>Rescue inhaler use is increasing</td><td>Assess control and need for follow-up/controller adjustment</td></tr>
+      <tr><td>PEF 55%</td><td>Reduced airflow compared with personal best</td><td>Treat acute bronchospasm and reassess</td></tr>
+    </table>
+  </div>
+
+  <div class="clinical-pearl">
+    <strong>Clinical Pearl:</strong> A SABA is a rescue medication. An inhaled corticosteroid is a controller medication and should be used consistently, even when the patient is not actively wheezing.
+  </div>
+<h3>Match Indicator to Meaning</h3>
+  <table>
+    <tr><th>Indicator</th><th>Meaning</th></tr>
+    <tr><td>Wheezing</td><td><select data-answer="bronchoconstriction"><option value="">Choose...</option><option value="bronchoconstriction">Bronchoconstriction/narrowed airways</option><option value="fluid">Pleural fluid</option><option value="normal">Normal vesicular sound</option></select></td></tr>
+    <tr><td>PEF 55%</td><td><select data-answer="moderate"><option value="">Choose...</option><option value="moderate">Worsening airflow obstruction; moderate exacerbation</option><option value="green">Green zone/well-controlled</option><option value="chronic">COPD diagnosis</option></select></td></tr>
+    <tr><td>Using SABA several times/week</td><td><select data-answer="poorcontrol"><option value="">Choose...</option><option value="poorcontrol">Poor asthma control; controller plan needs review</option><option value="goodcontrol">Well-controlled asthma</option><option value="osa">Sleep apnea</option></select></td></tr>
+    <tr><td>Skipping ICS</td><td><select data-answer="inflammation"><option value="">Choose...</option><option value="inflammation">Airway inflammation not being consistently treated</option><option value="rescue">Correct use of rescue medication</option><option value="none">No clinical concern</option></select></td></tr>
+  </table>
+  <button class="small-btn" onclick="checkSelects('asthma-assessment','fb-asthma-meaning',20)">Check asthma interpretations</button>
+  <div class="feedback" id="fb-asthma-meaning"></div>
+
+  <h3>Prioritize Sarah’s Care</h3>
+  <div class="drag-bank seq-bank">
+    <div class="seq-item" draggable="true" data-answer="immediate" id="aseq1">Sit upright, reduce exertion, assess ability to speak</div>
+    <div class="seq-item" draggable="true" data-answer="immediate" id="aseq2">Apply oxygen to maintain ordered target saturation</div>
+    <div class="seq-item" draggable="true" data-answer="immediate" id="aseq3">Administer SABA/nebulized bronchodilator as ordered</div>
+    <div class="seq-item" draggable="true" data-answer="time" id="aseq4">Administer oral/systemic corticosteroid as ordered</div>
+    <div class="seq-item" draggable="true" data-answer="time" id="aseq5">Repeat PEF and respiratory assessment after treatment</div>
+    <div class="seq-item" draggable="true" data-answer="teaching" id="aseq6">Teach ICS adherence even when asymptomatic</div>
+    <div class="seq-item" draggable="true" data-answer="teaching" id="aseq7">Develop asthma action plan with PEF zones and triggers</div>
+    <div class="seq-item" draggable="true" data-answer="teaching" id="aseq8">Review inhaler technique, spacer use, and trigger avoidance</div>
+  </div>
+  <div class="grid3">
+    <div class="priority-zone" data-accept="immediate" id="apri1"><h3>Immediate acute care</h3></div>
+    <div class="priority-zone" data-accept="time" id="apri2"><h3>Time-sensitive reassessment/medications</h3></div>
+    <div class="priority-zone" data-accept="teaching" id="apri3"><h3>Long-term control teaching</h3></div>
+  </div>
+  <button class="small-btn" onclick="checkDrop(['apri1','apri2','apri3'],'fb-asthma-priority',20)">Check asthma priorities</button>
+  <div class="feedback" id="fb-asthma-priority"></div>
+
+  
+  <div class="interactive-panel" id="asthmaSignificance">
+    <h3>Student Interpretation: Asthma Nursing Significance and Implications</h3>
+    <table class="three-col-table">
+      <tr><th>Finding</th><th>Nursing significance</th><th>Nursing implication</th></tr>
+      <tr>
+        <td>PEF 55% of personal best</td>
+        <td><textarea data-keywords="airflow|obstruction|moderate|exacerbation" placeholder="Interpret this finding."></textarea></td>
+        <td><textarea data-keywords="SABA|bronchodilator|oxygen|reassess|PEF" placeholder="What should the nurse anticipate?"></textarea></td>
+      </tr>
+      <tr>
+        <td>Worse at night/early morning</td>
+        <td><textarea data-keywords="poor control|persistent|inflammation|controller" placeholder="What does this suggest about asthma control?"></textarea></td>
+        <td><textarea data-keywords="action plan|ICS|follow-up|education|trigger" placeholder="What teaching or follow-up is needed?"></textarea></td>
+      </tr>
+      <tr>
+        <td>Fluticasone used inconsistently</td>
+        <td><textarea data-keywords="controller|inflammation|adherence|ICS" placeholder="Why is this important?"></textarea></td>
+        <td><textarea data-keywords="rinse|daily|teach|adherence|inhaler" placeholder="What education should the nurse provide?"></textarea></td>
+      </tr>
+    </table>
+    <button class="small-btn" onclick="checkTextGroup('asthmaSignificance','fb-asthma-significance')">Check asthma significance responses</button>
+    <div class="feedback" id="fb-asthma-significance"></div>
+  </div>
+
+  <div class="interactive-panel">
+    <h3>Asthma Pharmacology and Treatment Matching</h3>
+    <table>
+      <tr><th>Medication/treatment</th><th>Primary role</th><th>Patient teaching / nursing consideration</th></tr>
+      <tr><td>Salbutamol/SABA</td><td><select data-answer="rescue"><option value="">Choose...</option><option value="rescue">Rescue medication for acute bronchospasm</option><option value="controller">Daily inflammation control only</option><option value="sleep">Treat OSA</option></select></td><td><select data-answer="frequent"><option value="">Choose...</option><option value="frequent">Frequent use suggests poor control</option><option value="alone">Use instead of all controllers</option><option value="rinse">Only teaching is mouth rinsing</option></select></td></tr>
+      <tr><td>Inhaled corticosteroid</td><td><select data-answer="controller"><option value="">Choose...</option><option value="controller">Controller to reduce airway inflammation</option><option value="acute">Immediate rescue during severe attack</option><option value="antibiotic">Treat bacterial infection</option></select></td><td><select data-answer="rinse"><option value="">Choose...</option><option value="rinse">Use consistently and rinse mouth</option><option value="stop">Stop when symptoms improve</option><option value="prn">Use PRN only for wheezing</option></select></td></tr>
+      <tr><td>LABA</td><td><select data-answer="maintenance"><option value="">Choose...</option><option value="maintenance">Maintenance bronchodilation with ICS</option><option value="alone">Use alone as asthma rescue</option><option value="infection">Treat infection</option></select></td><td><select data-answer="notalone"><option value="">Choose...</option><option value="notalone">Not used alone in asthma</option><option value="rescue">Best immediate rescue inhaler</option><option value="noedu">No education required</option></select></td></tr>
+      <tr><td>Prednisone/systemic steroid</td><td><select data-answer="exacerbation"><option value="">Choose...</option><option value="exacerbation">Reduce inflammation during exacerbation</option><option value="instant">Instant bronchodilation in minutes</option><option value="cpap">Open airway during sleep</option></select></td><td><select data-answer="sideeffects"><option value="">Choose...</option><option value="sideeffects">Monitor glucose, mood, sleep, infection risk</option><option value="none">No side effects</option><option value="stopSABA">Stop rescue inhaler immediately</option></select></td></tr>
+    </table>
+    <button class="small-btn" onclick="checkSelects('asthma-assessment','fb-asthma-pharm')">Check asthma pharmacology</button>
+    <div class="feedback" id="fb-asthma-pharm"></div>
+  </div>
+
+<div class="choice-grid answer-container">
+    <button class="choice-btn c4" onclick="score(15,'asthma-good');go('asthma-reassess')">Treat acute bronchospasm now and reassess within 30 minutes</button>
+    <button class="choice-btn c5" onclick="miss();go('asthma-worse')">Delay bronchodilator until all diagnostics are complete</button>
+    <button class="choice-btn c3" onclick="miss();go('asthma-education-too-early')">Start with discharge education before acute treatment</button>
+  </div>
+</div>
+
+<div class="screen" id="asthma-education-too-early">
+  <div class="topbar"><div class="progress">Score: <span class="score"></span> | Safety misses: <span class="misses"></span></div><div class="meter"><div class="meter-fill"></div></div></div>
+  <h1>Teaching Is Important, But Not First</h1>
+  <div class="box warn">Education matters, but Sarah is currently symptomatic with airflow obstruction. Treat acute breathing concerns first, then teach once she can participate.</div>
+  <button class="small-btn" onclick="go('asthma-assessment')">Return</button>
+</div>
+
+<div class="screen" id="asthma-reassess">
+  <div class="topbar"><div class="progress">Score: <span class="score"></span> | Safety misses: <span class="misses"></span></div><div class="meter"><div class="meter-fill"></div></div></div>
+  <h1>Asthma Reassessment: Improvement or Deterioration?</h1>
+  <table>
+    <tr><th>Reassessment</th><th>Finding</th></tr>
+    <tr><td>RR</td><td>20/min</td></tr>
+    <tr><td>SpO₂</td><td>96% with low-flow oxygen</td></tr>
+    <tr><td>PEF</td><td>75% personal best</td></tr>
+    <tr><td>Speech</td><td>Full sentences</td></tr>
+    <tr><td>Breath sounds</td><td>Wheezing decreased, airflow improved</td></tr>
+  </table>
+  <h3>Interpret Assessment Changes</h3>
+  <table>
+    <tr><th>Change</th><th>Meaning</th><th>Next nursing focus</th></tr>
+    <tr><td>PEF 55% to 75%</td><td><select data-answer="improving"><option value="">Choose...</option><option value="improving">Improved airflow but still needs plan</option><option value="failure">Impending respiratory failure</option></select></td><td><textarea id="asthmaFollow"></textarea><button class="small-btn" onclick="checkClinicalReasoning('asthmaFollow',['action plan','ICS','follow-up','trigger','PEF','controller'],'asthmaFollowFB','<strong>Correct.</strong> Asthma symptoms improved, but long-term control and prevention remain important.','Expand your answer to include long-term asthma control strategies.')">Check Interpretation</button><div class="feedback" id="asthmaFollowFB"></div></td></tr>
+    <tr><td>Full sentences</td><td><select data-answer="lessdistress"><option value="">Choose...</option><option value="lessdistress">Reduced work of breathing</option><option value="worse">Worsening fatigue</option></select></td><td><textarea id="asthmaReassess"></textarea><button class="small-btn" onclick="checkClinicalReasoning('asthmaReassess',['PEF','SpO2','breath sounds','RR','work of breathing','reassess'],'asthmaReassessFB','<strong>Excellent reassessment planning.</strong>','Consider the focused respiratory indicators that should be reassessed.')">Check Interpretation</button><div class="feedback" id="asthmaReassessFB"></div></td></tr>
+    <tr><td>Uses SABA often</td><td><select data-answer="control"><option value="">Choose...</option><option value="control">Poor control/needs action plan and controller review</option><option value="normal">Expected with good asthma control</option></select></td><td><textarea id="asthmaTeach"></textarea><button class="small-btn" onclick="checkClinicalReasoning('asthmaTeach',['ICS','trigger','action plan','spacer','inhaler','rescue inhaler'],'asthmaTeachFB','<strong>Strong patient teaching.</strong>','Add inhaler use, triggers, and controller medication teaching.')">Check Interpretation</button><div class="feedback" id="asthmaTeachFB"></div></td></tr>
+  </table>
+  <button class="small-btn" onclick="checkSelects('asthma-reassess','fb-asthma-change',20)">Check reassessment interpretation</button>
+  <div class="feedback" id="fb-asthma-change"></div>
+
+  
+  <div class="case-subsection">
+    <h3>Medication Role Check: Asthma</h3>
+    <table>
+      <tr><th>Medication class</th><th>Role</th><th>Priority education</th></tr>
+      <tr><td>SABA such as salbutamol</td><td>Rapid bronchodilation for acute symptoms</td><td>Use for rescue; frequent use suggests poor control</td></tr>
+      <tr><td>ICS such as fluticasone</td><td>Reduces airway inflammation over time</td><td>Use consistently; rinse mouth after use</td></tr>
+      <tr><td>LABA</td><td>Long-acting bronchodilation for maintenance</td><td>Not for acute relief and not used alone in asthma</td></tr>
+      <tr><td>Leukotriene modifier</td><td>Adjunct, especially allergy-related asthma</td><td>Not a substitute for rescue inhaler</td></tr>
+    </table>
+  </div>
+<h3>Asthma Action Plan Components</h3>
+  <div class="drag-bank">
+    <span class="drag-item" draggable="true" data-answer="include" id="act1">PEF zones and what to do in each zone</span>
+    <span class="drag-item" draggable="true" data-answer="include" id="act2">Use SABA for acute wheeze/chest tightness</span>
+    <span class="drag-item" draggable="true" data-answer="include" id="act3">Take ICS consistently and rinse mouth</span>
+    <span class="drag-item" draggable="true" data-answer="include" id="act4">Avoid known triggers such as dust, pollen, smoke, cold air</span>
+    <span class="drag-item" draggable="true" data-answer="include" id="act5">Seek emergency help if PEF drops severely or symptoms do not improve</span>
+    <span class="drag-item" draggable="true" data-answer="exclude" id="act6">Use LABA alone as rescue therapy</span>
+    <span class="drag-item" draggable="true" data-answer="exclude" id="act7">Stop ICS when asymptomatic</span>
+  </div>
+  <div class="grid2">
+    <div class="drop-zone" data-accept="include" id="action-include"><h3>Include in asthma action plan</h3></div>
+    <div class="drop-zone" data-accept="exclude" id="action-exclude"><h3>Unsafe or inaccurate teaching</h3></div>
+  </div>
+  <button class="small-btn" onclick="checkDrop(['action-include','action-exclude'],'fb-action-plan',20)">Check action plan</button>
+  <div class="feedback" id="fb-action-plan"></div>
+  <button class="small-btn" onclick="go('asthma-transition')">Continue to asthma discharge planning</button>
+</div>
+
+<div class="screen" id="asthma-worse">
+  <div class="topbar"><div class="progress">Score: <span class="score"></span> | Safety misses: <span class="misses"></span></div><div class="meter"><div class="meter-fill"></div></div></div>
+  <h1>Asthma Deterioration: Status Asthmaticus Risk</h1>
+  <div class="box alert">
+    Sarah becomes exhausted. Wheezing becomes minimal with very poor airflow. She can only speak one word at a time. ABG shows rising PaCO₂.
+  </div>
+  <p><strong>Interpretation:</strong> A “silent chest” and rising CO₂ in asthma are ominous signs of impending respiratory failure.</p>
+  <button class="small-btn" onclick="go('asthma-escalation')">Escalate care</button>
+</div>
+
+<div class="screen" id="asthma-escalation">
+  <div class="topbar"><div class="progress">Score: <span class="score"></span> | Safety misses: <span class="misses"></span></div><div class="meter"><div class="meter-fill"></div></div></div>
+  <h1>Asthma Escalation</h1>
+  <div class="box alert">Call provider/RRT, prepare for higher-level respiratory support, continue bronchodilator therapy, corticosteroids, oxygen, and close monitoring.</div>
+  <button class="small-btn" onclick="go('pneumonia-assessment')">Continue</button>
+</div>
+
+
+<div class="screen" id="asthma-transition">
+  <div class="topbar"><div class="progress">Score: <span class="score"></span> | Safety misses: <span class="misses"></span></div><div class="meter"><div class="meter-fill"></div></div></div>
+  <h1>Asthma Discharge and Community Management</h1>
+  <div class="transition-plan">
+    <p>Sarah’s acute symptoms improve. She is now stable enough for discharge teaching and follow-up planning. The goal is to prevent recurrence, improve controller adherence, and help her respond early to worsening symptoms.</p>
+  </div>
+  <h3>Asthma Discharge Teaching Check</h3>
+  <table>
+    <tr><th>Issue</th><th>Best nursing teaching</th></tr>
+    <tr><td>Uses salbutamol frequently</td><td><select data-answer="poorcontrol"><option value="">Choose...</option><option value="poorcontrol">Frequent rescue use suggests poor control and requires follow-up</option><option value="normal">This means asthma is well controlled</option><option value="stopics">Stop controller medication</option></select></td></tr>
+    <tr><td>Skips fluticasone when asymptomatic</td><td><select data-answer="daily"><option value="">Choose...</option><option value="daily">Use ICS consistently to control inflammation; rinse mouth after use</option><option value="prn">Use ICS only during severe attacks</option><option value="never">Avoid ICS completely</option></select></td></tr>
+    <tr><td>Seasonal allergies and dust exposure</td><td><select data-answer="triggers"><option value="">Choose...</option><option value="triggers">Identify triggers and reduce exposure where feasible</option><option value="ignore">Triggers are not relevant</option><option value="antibiotics">Take antibiotics before pollen season</option></select></td></tr>
+    <tr><td>PEF monitoring</td><td><select data-answer="zones"><option value="">Choose...</option><option value="zones">Use green/yellow/red zones in asthma action plan</option><option value="none">PEF has no teaching value</option><option value="once">Check once per year only</option></select></td></tr>
+  </table>
+  <button class="small-btn" onclick="checkSelects('asthma-transition','fb-asthma-transition')">Check asthma discharge plan</button>
+  <div class="feedback" id="fb-asthma-transition"></div>
+  <button class="small-btn" onclick="go('pneumonia-assessment')">Continue to Respiratory Assessment/Consolidation Case</button>
+</div>
+
+<!-- PNEUMONIA/ASSESSMENT CASE -->
+<div class="screen" id="pneumonia-assessment">
+  <div class="topbar"><div class="progress">Score: <span class="score"></span> | Safety misses: <span class="misses"></span></div><div class="meter"><div class="meter-fill"></div></div></div>
+  <h1>Case 3: Amira Khan — Focused Respiratory Assessment and Abnormal Findings</h1>
+  <div class="box">
+    <p>Amira is 44 and presents with fever, productive cough, pleuritic discomfort, and fatigue. She is not in severe distress, but you are asked to complete a focused respiratory assessment and interpret abnormal findings.</p>
+  </div>
+  <table>
+    <tr><th>Assessment Technique</th><th>Finding</th><th>Interpretation</th></tr>
+    <tr><td>Inspection</td><td>RR 24, shallow breathing, guards right side</td><td><input placeholder="Student interpretation"></td></tr>
+    <tr><td>Palpation</td><td>Increased tactile fremitus RLL</td><td><input placeholder="Student interpretation"></td></tr>
+    <tr><td>Percussion</td><td>Dullness RLL</td><td><input placeholder="Student interpretation"></td></tr>
+    <tr><td>Auscultation</td><td>Crackles RLL</td><td><input placeholder="Student interpretation"></td></tr>
+    <tr><td>Voice sounds</td><td>Egophony and bronchophony RLL</td><td><input placeholder="Student interpretation"></td></tr>
+  </table>
+  
+  
+  <div class="assessment-station">
+    <h3>Interactive Respiratory Assessment Station</h3>
+    <p>This section focuses on the required respiratory assessment techniques: inspection, palpation, percussion, auscultation, tactile fremitus, voice sounds, and adventitious sounds. Diaphragmatic excursion and the 6-minute walk are intentionally omitted.</p>
+
+    <h4>Step 1: Organize the focused respiratory assessment sequence</h4>
+    <p class="note">Drag the assessment steps into the correct order.</p>
+    <div class="drag-bank">
+      <span class="drag-item" draggable="true" data-answer="1" id="assess1">Inspect</span>
+      <span class="drag-item" draggable="true" data-answer="2" id="assess2">Palpate</span>
+      <span class="drag-item" draggable="true" data-answer="3" id="assess3">Percuss</span>
+      <span class="drag-item" draggable="true" data-answer="4" id="assess4">Auscultate</span>
+    </div>
+
+    <div class="grid4">
+      <div class="drop-zone" data-accept="1" id="order1"><h3>1st</h3></div>
+      <div class="drop-zone" data-accept="2" id="order2"><h3>2nd</h3></div>
+      <div class="drop-zone" data-accept="3" id="order3"><h3>3rd</h3></div>
+      <div class="drop-zone" data-accept="4" id="order4"><h3>4th</h3></div>
+    </div>
+
+    <button class="small-btn" onclick="checkDrop(['order1','order2','order3','order4'],'fb-assessment-order')">Check assessment order</button>
+    <div class="feedback" id="fb-assessment-order"></div>
+
+    <h4>Step 2: Inspection — identify concerning findings</h4>
+    <div class="checklist">
+      <label><input type="checkbox" name="inspectionFindings" value="rr"> RR 24/min and shallow breathing</label>
+      <label><input type="checkbox" name="inspectionFindings" value="guarding"> Guarding right side with inspiration</label>
+      <label><input type="checkbox" name="inspectionFindings" value="accessory"> Accessory muscle use</label>
+      <label><input type="checkbox" name="inspectionFindings" value="symmetry"> Symmetrical clavicles</label>
+      <label><input type="checkbox" name="inspectionFindings" value="cyanosis"> New cyanosis of lips or nail beds</label>
+    </div>
+    <button class="small-btn" onclick="checkCheckboxSet('inspectionFindings',['rr','guarding','accessory','cyanosis'],'fb-inspection')">Check inspection findings</button>
+    <div class="feedback" id="fb-inspection"></div>
+
+    <h4>Step 3: Technique-to-finding matching</h4>
+    <table>
+      <tr><th>Assessment technique</th><th>What the student should do</th><th>Possible abnormal finding</th></tr>
+      <tr>
+        <td>Symmetric chest expansion</td>
+        <td><select data-answer="hands"><option value="">Choose...</option><option value="hands">Place hands at equal level and observe thumb movement with inspiration</option><option value="listen">Listen over trachea only</option><option value="tap">Percuss over abdomen only</option></select></td>
+        <td><select data-answer="unequal"><option value="">Choose...</option><option value="unequal">Unequal expansion</option><option value="normal">Normal vesicular sounds</option><option value="snore">Snoring only</option></select></td>
+      </tr>
+      <tr>
+        <td>Tactile fremitus</td>
+        <td><select data-answer="palmar"><option value="">Choose...</option><option value="palmar">Use palmar/ulnar surface while patient says “99” or “blue moon”</option><option value="diaphragm">Use diaphragm only while patient is silent</option><option value="whisper">Ask patient to whisper only</option></select></td>
+        <td><select data-answer="increased"><option value="">Choose...</option><option value="increased">Increased fremitus over consolidation</option><option value="bronchospasm">Always means bronchospasm</option><option value="osa">Always means sleep apnea</option></select></td>
+      </tr>
+      <tr>
+        <td>Percussion</td>
+        <td><select data-answer="sidetoside"><option value="">Choose...</option><option value="sidetoside">Percuss side-to-side comparing lung fields</option><option value="random">Percuss random areas only</option><option value="skip">Skip if cough present</option></select></td>
+        <td><select data-answer="dull"><option value="">Choose...</option><option value="dull">Dullness may suggest consolidation/fluid</option><option value="clear">Clear voice sounds</option><option value="apnea">Apneic episode</option></select></td>
+      </tr>
+      <tr>
+        <td>Auscultation</td>
+        <td><select data-answer="compare"><option value="">Choose...</option><option value="compare">Use diaphragm and compare side-to-side while patient breathes</option><option value="overclothes">Listen quickly over clothing only</option><option value="onepoint">Listen to one location only</option></select></td>
+        <td><select data-answer="crackles"><option value="">Choose...</option><option value="crackles">Crackles, wheezes, rhonchi, stridor, or rub</option><option value="fremitus">Tactile fremitus</option><option value="percussion">Hyperresonance only</option></select></td>
+      </tr>
+    </table>
+    <button class="small-btn" onclick="checkSelects('pneumonia-assessment','fb-technique-match')">Check assessment technique matching</button>
+    <div class="feedback" id="fb-technique-match"></div>
+
+    <h4>Step 4: Voice sounds interpretation</h4>
+    <table>
+      <tr><th>Voice sound</th><th>Student action</th><th>Abnormal interpretation</th><th>Nursing implication</th></tr>
+      <tr>
+        <td>Bronchophony</td>
+        <td><select data-answer="ninety"><option value="">Choose...</option><option value="ninety">Ask patient to say “99” while auscultating</option><option value="silent">Ask patient to remain silent</option><option value="cough">Ask patient to cough only</option></select></td>
+        <td><select data-answer="clearwords"><option value="">Choose...</option><option value="clearwords">Words unusually loud/clear may suggest consolidation</option><option value="normal">Always normal</option><option value="airtrap">Always emphysema</option></select></td>
+        <td><textarea data-keywords="document|compare|report|consolidation|reassess" placeholder="What would you document or report?"></textarea></td>
+      </tr>
+      <tr>
+        <td>Egophony</td>
+        <td><select data-answer="eee"><option value="">Choose...</option><option value="eee">Ask patient to say “eee”</option><option value="whisper">Ask patient to whisper</option><option value="hold">Ask patient to hold breath</option></select></td>
+        <td><select data-answer="aaa"><option value="">Choose...</option><option value="aaa">“E” heard as “A” may indicate consolidation</option><option value="normal">Expected over all lobes</option><option value="broncho">Always bronchospasm</option></select></td>
+        <td><textarea data-keywords="consolidation|pneumonia|right lower lobe|provider|monitor" placeholder="What does this suggest and what next?"></textarea></td>
+      </tr>
+      <tr>
+        <td>Whispered pectoriloquy</td>
+        <td><select data-answer="whisper"><option value="">Choose...</option><option value="whisper">Ask patient to whisper words while auscultating</option><option value="shout">Ask patient to shout</option><option value="palpate">Palpate only</option></select></td>
+        <td><select data-answer="heard"><option value="">Choose...</option><option value="heard">Whispers heard clearly may indicate consolidation</option><option value="none">No clinical meaning</option><option value="osa">Confirms OSA</option></select></td>
+        <td><textarea data-keywords="compare|document|x-ray|consolidation|lung sounds" placeholder="What is the implication?"></textarea></td>
+      </tr>
+    </table>
+    <button class="small-btn" onclick="checkSelects('pneumonia-assessment','fb-voice-sounds')">Check voice sound interpretation</button>
+    <button class="small-btn" onclick="checkTextGroup('pneumonia-assessment','fb-voice-text')">Check written nursing implications</button>
+    <div class="feedback" id="fb-voice-sounds"></div>
+    <div class="feedback" id="fb-voice-text"></div>
+
+    <h4>Step 5: Adventitious sound recognition</h4>
+    <table>
+      <tr><th>Sound</th><th>Description</th><th>Likely meaning</th></tr>
+      <tr><td>Fine crackles</td><td><select data-answer="popping"><option value="">Choose...</option><option value="popping">Short, high-pitched popping sounds</option><option value="musical">Musical squeaking sound</option><option value="snoring">Low snoring sound</option></select></td><td><select data-answer="fluid"><option value="">Choose...</option><option value="fluid">Fluid/consolidation/atelectatic change depending context</option><option value="upper">Upper airway obstruction only</option><option value="normal">Always normal</option></select></td></tr>
+      <tr><td>Wheeze</td><td><select data-answer="musical"><option value="">Choose...</option><option value="musical">Continuous musical sound, often on expiration</option><option value="grating">Grating pleural sound</option><option value="silent">No airflow</option></select></td><td><select data-answer="narrow"><option value="">Choose...</option><option value="narrow">Narrowed airways/bronchospasm</option><option value="fluid">Pleural effusion only</option><option value="voice">Voice transmission</option></select></td></tr>
+      <tr><td>Stridor</td><td><select data-answer="high"><option value="">Choose...</option><option value="high">High-pitched inspiratory crowing sound</option><option value="low">Low snoring sound</option><option value="soft">Soft vesicular sound</option></select></td><td><select data-answer="emergency"><option value="">Choose...</option><option value="emergency">Upper airway obstruction; urgent concern</option><option value="stable">Stable discharge finding</option><option value="copdonly">Only chronic COPD</option></select></td></tr>
+    </table>
+    <button class="small-btn" onclick="checkSelects('pneumonia-assessment','fb-adventitious')">Check adventitious sounds</button>
+    <div class="feedback" id="fb-adventitious"></div>
+  </div>
+
+<h3>Match Assessment Findings to Meaning</h3>
+  <table>
+    <tr><th>Finding</th><th>Meaning</th></tr>
+    <tr><td>Increased tactile fremitus</td><td><select data-answer="consolidation"><option value="">Choose...</option><option value="consolidation">Increased vibration through consolidated lung tissue</option><option value="emphysema">Air trapping with decreased density</option><option value="normal">Normal finding</option></select></td></tr>
+    <tr><td>Egophony</td><td><select data-answer="voice"><option value="">Choose...</option><option value="voice">Abnormal voice transmission often associated with consolidation</option><option value="wheeze">Bronchospasm</option><option value="osa">Sleep apnea</option></select></td></tr>
+    <tr><td>Whispered pectoriloquy</td><td><select data-answer="whisper"><option value="">Choose...</option><option value="whisper">Whispered sounds heard clearly through abnormal/consolidated tissue</option><option value="normal">Normal over all lung fields</option><option value="hyperinflation">COPD hyperinflation</option></select></td></tr>
+    <tr><td>Dullness to percussion</td><td><select data-answer="dense"><option value="">Choose...</option><option value="dense">Increased tissue density/fluid/consolidation</option><option value="air">Excess air only</option><option value="normal">Normal resonance</option></select></td></tr>
+  </table>
+  <button class="small-btn" onclick="checkSelects('pneumonia-assessment','fb-pneumonia',20)">Check respiratory assessment interpretation</button>
+  <div class="feedback" id="fb-pneumonia"></div>
+
+  
+<div class="interactive-panel">
+<h3>Cultural Safety and Communication</h3>
+
+<p>Amira states English is not her first language and she is worried about being misunderstood.</p>
+
+<table>
+<tr><th>Situation</th><th>Best nursing response</th></tr>
+
+<tr>
+<td>Language barrier</td>
+<td>
+<select data-answer="interpreter">
+<option value="">Choose...</option>
+<option value="interpreter">Use interpreter services and confirm understanding with teach-back</option>
+<option value="family">Automatically use family members for interpretation</option>
+<option value="skip">Skip teaching because communication is difficult</option>
+</select>
+</td>
+</tr>
+
+<tr>
+<td>Quiet communication style</td>
+<td>
+<select data-answer="avoidassume">
+<option value="">Choose...</option>
+<option value="avoidassume">Avoid assumptions and assess communication preferences respectfully</option>
+<option value="noncompliant">Document as noncompliant</option>
+<option value="ignore">Ignore communication concerns</option>
+</select>
+</td>
+</tr>
+</table>
+
+<button class="small-btn" onclick="checkSelects('pneumonia-assessment','fb-pneumonia-culture')">Check cultural safety response</button>
+<div class="feedback" id="fb-pneumonia-culture"></div>
+</div>
+
+<h3>Bronchial Hygiene Techniques: Sort Interventions</h3>
+  <div class="drag-bank">
+    <span class="drag-item" draggable="true" data-answer="both" id="bh1">Huff coughing</span>
+    <span class="drag-item" draggable="true" data-answer="both" id="bh2">Pursed-lip breathing</span>
+    <span class="drag-item" draggable="true" data-answer="copd" id="bh3">SOS for SOB positioning and breathing recovery</span>
+    <span class="drag-item" draggable="true" data-answer="both" id="bh4">Hydration if not contraindicated</span>
+    <span class="drag-item" draggable="true" data-answer="pneumonia" id="bh5">Cough/deep breathe and mobilize secretions</span>
+    <span class="drag-item" draggable="true" data-answer="asthma" id="bh6">Use reliever inhaler for acute bronchospasm as prescribed</span>
+  </div>
+  <div class="grid4">
+    <div class="drop-zone" data-accept="copd" id="bh-copd"><h3>COPD emphasis</h3></div>
+    <div class="drop-zone" data-accept="asthma" id="bh-asthma"><h3>Asthma emphasis</h3></div>
+    <div class="drop-zone" data-accept="pneumonia" id="bh-pneumonia"><h3>Pneumonia/consolidation emphasis</h3></div>
+    <div class="drop-zone" data-accept="both" id="bh-both"><h3>Useful across conditions</h3></div>
+  </div>
+  <button class="small-btn" onclick="checkDrop(['bh-copd','bh-asthma','bh-pneumonia','bh-both'],'fb-bh',20)">Check bronchial hygiene sorting</button>
+  <div class="feedback" id="fb-bh"></div>
+  
+  <div class="interactive-panel" id="pneumoniaSignificance">
+    <h3>Student Interpretation: Assessment Findings, Nursing Significance, and Implications</h3>
+    <table class="three-col-table">
+      <tr><th>Assessment finding</th><th>Nursing significance</th><th>Nursing implication</th></tr>
+      <tr>
+        <td>Crackles RLL + dullness to percussion</td>
+        <td><textarea data-keywords="consolidation|fluid|secretions|pneumonia" placeholder="What does this suggest?"></textarea></td>
+        <td><textarea data-keywords="auscultate|SpO2|cough|deep breathe|provider" placeholder="What should you monitor or do?"></textarea></td>
+      </tr>
+      <tr>
+        <td>Increased tactile fremitus and bronchophony</td>
+        <td><textarea data-keywords="consolidation|density|transmission|pneumonia" placeholder="Interpret the voice/fremitus findings."></textarea></td>
+        <td><textarea data-keywords="document|compare|x-ray|report|reassess" placeholder="What is the implication for nursing assessment?"></textarea></td>
+      </tr>
+      <tr>
+        <td>Fever + productive cough + pleuritic discomfort</td>
+        <td><textarea data-keywords="infection|pneumonia|inflammation|respiratory" placeholder="What pattern is present?"></textarea></td>
+        <td><textarea data-keywords="vitals|sputum|hydration|antibiotic|education" placeholder="What should the nurse anticipate?"></textarea></td>
+      </tr>
+    </table>
+    <button class="small-btn" onclick="checkTextGroup('pneumoniaSignificance','fb-pneumonia-significance')">Check respiratory assessment significance</button>
+    <div class="feedback" id="fb-pneumonia-significance"></div>
+  </div>
+
+  <div class="interactive-panel">
+    <h3>Lab/Diagnostic Interpretation: Respiratory Assessment Case</h3>
+    <table>
+      <tr><th>Result</th><th>Interpretation</th><th>Nursing implication</th></tr>
+      <tr><td>WBC 14.8 x10⁹/L</td><td><select data-answer="infection"><option value="">Choose...</option><option value="normal">Normal finding</option><option value="infection">Supports infection/inflammation</option><option value="copd">Confirms emphysema</option></select></td><td><select data-answer="trend"><option value="">Choose...</option><option value="trend">Trend with vitals and clinical status</option><option value="ignore">Ignore if cough present</option><option value="sedate">Give sedative</option></select></td></tr>
+      <tr><td>CXR: right lower lobe infiltrate</td><td><select data-answer="source"><option value="">Choose...</option><option value="source">Supports pneumonia/consolidation</option><option value="osa">Sleep apnea</option><option value="asthma">Asthma control</option></select></td><td><select data-answer="resp"><option value="">Choose...</option><option value="resp">Monitor respiratory status and response to treatment</option><option value="discharge">Discharge without teaching</option><option value="stop">Stop assessment</option></select></td></tr>
+      <tr><td>SpO₂ 93% RA</td><td><select data-answer="watch"><option value="">Choose...</option><option value="watch">Borderline; interpret with WOB and trend</option><option value="perfect">No concern ever</option><option value="failure">Always respiratory failure</option></select></td><td><select data-answer="reassess"><option value="">Choose...</option><option value="reassess">Reassess SpO₂, RR, WOB, lung sounds</option><option value="ignore">No reassessment</option><option value="opioid">Give opioid first</option></select></td></tr>
+    </table>
+    <button class="small-btn" onclick="checkSelects('pneumonia-assessment','fb-pneumonia-labs')">Check lab/diagnostic interpretation</button>
+    <div class="feedback" id="fb-pneumonia-labs"></div>
+  </div>
+<button class="small-btn" onclick="go('pneumonia-transition')">Continue to transition planning</button>
+</div>
+
+
+<div class="screen" id="pneumonia-transition">
+  <div class="topbar"><div class="progress">Score: <span class="score"></span> | Safety misses: <span class="misses"></span></div><div class="meter"><div class="meter-fill"></div></div></div>
+  <h1>Respiratory Assessment Case: Transition and Teaching</h1>
+  <div class="transition-plan">
+    <p>Amira’s assessment findings are communicated to the provider. Her oxygenation remains stable, treatment is initiated as ordered, and discharge/community instructions are prepared with attention to symptom monitoring and follow-up.</p>
+  </div>
+  <h3>Transition Priorities</h3>
+  <table>
+    <tr><th>Need</th><th>Best nursing action</th></tr>
+    <tr><td>Productive cough and consolidation findings</td><td><select data-answer="cough"><option value="">Choose...</option><option value="cough">Teach cough/deep breathing, hydration if appropriate, and secretion monitoring</option><option value="bedrest">Avoid movement or coughing</option><option value="ignore">Do not reassess lungs</option></select></td></tr>
+    <tr><td>Antibiotic prescribed</td><td><select data-answer="complete"><option value="">Choose...</option><option value="complete">Teach medication schedule, side effects, and when to seek help</option><option value="stop">Stop when feeling better after one dose</option><option value="share">Share medication with family</option></select></td></tr>
+    <tr><td>Return precautions</td><td><select data-answer="worse"><option value="">Choose...</option><option value="worse">Return for worsening SOB, fever, confusion, chest pain, cyanosis, or poor intake</option><option value="none">No return precautions needed</option><option value="delay">Wait several weeks if worse</option></select></td></tr>
+  </table>
+  <button class="small-btn" onclick="checkSelects('pneumonia-transition','fb-pneumonia-transition')">Check transition plan</button>
+  <div class="feedback" id="fb-pneumonia-transition"></div>
+  <button class="small-btn" onclick="go('osa-assessment')">Continue to OSA Case</button>
+</div>
+
+<!-- OSA CASE -->
+<div class="screen" id="osa-assessment">
+  <div class="topbar"><div class="progress">Score: <span class="score"></span> | Safety misses: <span class="misses"></span></div><div class="meter"><div class="meter-fill"></div></div></div>
+  <h1>Case 4: Michael Roberts — Obstructive Sleep Apnea and Post-Operative Risk</h1>
+  <div class="box">
+    <p>Michael is a 54-year-old post-operative patient with suspected OSA. His partner reports loud snoring and witnessed apneic episodes. He received opioid analgesia and is now sleepy with intermittent oxygen desaturation when asleep.</p>
+  </div>
+  <table>
+    <tr><th>STOP-BANG element</th><th>Michael’s data</th></tr>
+    <tr><td>Snoring</td><td>Yes, loud</td></tr>
+    <tr><td>Tired</td><td>Excessive daytime sleepiness</td></tr>
+    <tr><td>Observed apnea</td><td>Yes</td></tr>
+    <tr><td>Pressure</td><td>Hypertension history</td></tr>
+    <tr><td>BMI</td><td>36</td></tr>
+    <tr><td>Age</td><td>54</td></tr>
+    <tr><td>Neck</td><td>Large neck circumference</td></tr>
+    <tr><td>Gender</td><td>Male</td></tr>
+  </table>
+  
+  <div class="case-subsection">
+    <h3>OSA Pathophysiology and Hospital Safety</h3>
+    <p>Obstructive sleep apnea occurs when the upper airway partially or completely collapses during sleep, causing repeated apnea or hypopnea, intermittent hypoxemia, hypercapnia, arousals, and daytime sleepiness. In hospital, opioids and sedatives can worsen OSA by reducing respiratory drive and airway tone.</p>
+    <table>
+      <tr><th>Finding</th><th>Meaning</th><th>Nursing priority</th></tr>
+      <tr><td>Loud snoring and observed apnea</td><td>Possible recurrent upper airway obstruction</td><td>Screen and communicate risk</td></tr>
+      <tr><td>Somnolence after opioids</td><td>Risk of oversedation and respiratory depression</td><td>Monitor sedation, RR, SpO₂, and airway</td></tr>
+      <tr><td>Desaturation during sleep</td><td>Possible obstructive events</td><td>Position, CPAP if prescribed, notify provider if worsening</td></tr>
+      <tr><td>Known CPAP use at home</td><td>Therapy should usually continue in hospital</td><td>Ensure access to equipment and correct use</td></tr>
+    </table>
+  </div>
+<h3>Interpret OSA Risk and Safety Concerns</h3>
+  <table>
+    <tr><td>STOP-BANG score pattern</td><td><select data-answer="highrisk"><option value="">Choose...</option><option value="highrisk">High risk OSA</option><option value="lowrisk">Low risk OSA</option></select></td></tr>
+    <tr><td>Opioid use in suspected OSA</td><td><select data-answer="respdepress"><option value="">Choose...</option><option value="respdepress">Can worsen airway obstruction and respiratory depression</option><option value="safe">Always safe without monitoring</option></select></td></tr>
+    <tr><td>Desaturation during sleep</td><td><select data-answer="airway"><option value="">Choose...</option><option value="airway">Possible recurrent upper airway obstruction</option><option value="normal">Expected postoperative finding</option></select></td></tr>
+  </table>
+  <button class="small-btn" onclick="checkSelects('osa-assessment','fb-osa-meaning',20)">Check OSA interpretation</button>
+  <div class="feedback" id="fb-osa-meaning"></div>
+
+  
+  <div class="interactive-panel" id="osaSignificance">
+    <h3>Student Interpretation: OSA Nursing Significance and Implications</h3>
+    <table class="three-col-table">
+      <tr><th>Finding</th><th>Nursing significance</th><th>Nursing implication</th></tr>
+      <tr>
+        <td>Somnolence after opioid analgesia</td>
+        <td><textarea data-keywords="sedation|respiratory depression|airway|OSA" placeholder="Why is this concerning?"></textarea></td>
+        <td><textarea data-keywords="monitor|sedation score|RR|SpO2|provider" placeholder="What should the nurse do or anticipate?"></textarea></td>
+      </tr>
+      <tr>
+        <td>Snoring respirations and witnessed apnea</td>
+        <td><textarea data-keywords="obstruction|airway collapse|apnea|hypoxemia" placeholder="Interpret this pattern."></textarea></td>
+        <td><textarea data-keywords="CPAP|position|oxygen|monitor|sleep study" placeholder="What care is needed?"></textarea></td>
+      </tr>
+      <tr>
+        <td>Desaturation during sleep</td>
+        <td><textarea data-keywords="hypoxemia|apnea|airway|sleep" placeholder="What does this indicate?"></textarea></td>
+        <td><textarea data-keywords="continuous monitoring|CPAP|reassess|notify|opioid" placeholder="What is the nursing implication?"></textarea></td>
+      </tr>
+    </table>
+    <button class="small-btn" onclick="checkTextGroup('osaSignificance','fb-osa-significance')">Check OSA significance responses</button>
+    <div class="feedback" id="fb-osa-significance"></div>
+  </div>
+
+  <div class="interactive-panel">
+    <h3>OSA Treatment and Medication Safety</h3>
+    <table>
+      <tr><th>Treatment/medication issue</th><th>Clinical meaning</th><th>Nursing implication</th></tr>
+      <tr><td>CPAP</td><td><select data-answer="airway"><option value="">Choose...</option><option value="airway">Maintains positive airway pressure during sleep</option><option value="broncho">Treats bronchospasm directly</option><option value="antibiotic">Treats pneumonia infection</option></select></td><td><select data-answer="use"><option value="">Choose...</option><option value="use">Use consistently if prescribed, including in hospital</option><option value="rare">Use only once monthly</option><option value="avoid">Avoid post-op</option></select></td></tr>
+      <tr><td>Opioids/sedatives</td><td><select data-answer="risk"><option value="">Choose...</option><option value="risk">Can worsen airway obstruction and respiratory depression</option><option value="safe">Always safe without monitoring</option><option value="cure">Cure OSA</option></select></td><td><select data-answer="monitor"><option value="">Choose...</option><option value="monitor">Monitor sedation, RR, SpO₂; notify provider if concerning</option><option value="increase">Increase dose for snoring</option><option value="ignore">No monitoring needed</option></select></td></tr>
+      <tr><td>Positioning</td><td><select data-answer="patency"><option value="">Choose...</option><option value="patency">May improve airway patency and reduce obstruction</option><option value="infection">Treats bacterial infection</option><option value="acid">Corrects acidosis alone</option></select></td><td><select data-answer="side"><option value="">Choose...</option><option value="side">Avoid supine if it worsens symptoms; maintain safe positioning</option><option value="flat">Always place flat</option><option value="none">Position does not matter</option></select></td></tr>
+    </table>
+    <button class="small-btn" onclick="checkSelects('osa-assessment','fb-osa-treatment')">Check OSA treatment/safety</button>
+    <div class="feedback" id="fb-osa-treatment"></div>
+  </div>
+
+<div class="interactive-panel">
+<h3>Psychosocial Factors Affecting OSA Care</h3>
+
+<p>Michael reports he avoids CPAP because it is uncomfortable and embarrassing.</p>
+
+<table>
+<tr><th>Concern</th><th>Best nursing implication</th></tr>
+
+<tr>
+<td>CPAP discomfort</td>
+<td>
+<select data-answer="fit">
+<option value="">Choose...</option>
+<option value="fit">Assess mask fit, troubleshoot comfort, and involve RT if needed</option>
+<option value="stop">Advise stopping CPAP permanently</option>
+<option value="ignore">Ignore comfort concerns</option>
+</select>
+</td>
+</tr>
+
+<tr>
+<td>Embarrassment and stigma</td>
+<td>
+<select data-answer="normalize">
+<option value="">Choose...</option>
+<option value="normalize">Normalize concerns and support adherence using nonjudgmental communication</option>
+<option value="shame">Use shame to encourage CPAP use</option>
+<option value="avoid">Avoid discussing adherence</option>
+</select>
+</td>
+</tr>
+
+</table>
+
+<button class="small-btn" onclick="checkSelects('osa-assessment','fb-osa-psych')">Check psychosocial response</button>
+<div class="feedback" id="fb-osa-psych"></div>
+</div>
+
+<h3>Prioritize OSA Care</h3>
+  <div class="choice-grid answer-container">
+    <button class="choice-btn c4" onclick="score(15,'osa-safe');go('osa-reassess')">Increase monitoring, position safely, use CPAP if prescribed/available, reassess sedation and respiratory status, notify provider if worsening</button>
+    <button class="choice-btn c5" onclick="miss();go('osa-worse')">Give more opioid because he is restless when awake</button>
+    <button class="choice-btn c3" onclick="miss();go('osa-worse')">Let him sleep without monitoring because snoring is common</button>
+  </div>
+</div>
+
+<div class="screen" id="osa-reassess">
+  <div class="topbar"><div class="progress">Score: <span class="score"></span> | Safety misses: <span class="misses"></span></div><div class="meter"><div class="meter-fill"></div></div></div>
+  <h1>OSA Reassessment, Discharge, and Community Management</h1>
+  <div class="box good">With positioning, CPAP, and closer monitoring, Michael’s oxygenation stabilizes during sleep. Sedation level is monitored and the provider reviews his analgesia plan. Transition planning focuses on safe CPAP use, sleep study follow-up, medication safety, and postoperative discharge instructions.</div>
+  <h3>Discharge/Teaching Plan: Sort Safe Teaching</h3>
+  <div class="drag-bank">
+    <span class="drag-item" draggable="true" data-answer="safe" id="osa1">Use CPAP consistently as prescribed</span>
+    <span class="drag-item" draggable="true" data-answer="safe" id="osa2">Avoid alcohol and sedatives unless directed by provider</span>
+    <span class="drag-item" draggable="true" data-answer="safe" id="osa3">Avoid supine sleeping if it worsens symptoms</span>
+    <span class="drag-item" draggable="true" data-answer="safe" id="osa4">Follow up for sleep study/OSA management</span>
+    <span class="drag-item" draggable="true" data-answer="unsafe" id="osa5">Use CPAP only when symptoms feel severe</span>
+    <span class="drag-item" draggable="true" data-answer="unsafe" id="osa6">Take sedatives to sleep through apneas</span>
+  </div>
+  <div class="grid2">
+    <div class="drop-zone" data-accept="safe" id="osa-safe"><h3>Safe OSA teaching</h3></div>
+    <div class="drop-zone" data-accept="unsafe" id="osa-unsafe"><h3>Unsafe teaching</h3></div>
+  </div>
+  <button class="small-btn" onclick="checkDrop(['osa-safe','osa-unsafe'],'fb-osa-teach',20)">Check OSA teaching</button>
+  <div class="feedback" id="fb-osa-teach"></div>
+  <button class="small-btn" onclick="go('final-priority')">Continue to Final Prioritization</button>
+</div>
+
+<div class="screen" id="osa-worse">
+  <div class="topbar"><div class="progress">Score: <span class="score"></span> | Safety misses: <span class="misses"></span></div><div class="meter"><div class="meter-fill"></div></div></div>
+  <h1>OSA Deterioration</h1>
+  <div class="box alert">Michael becomes increasingly somnolent with repeated desaturations and prolonged apneic periods. Opioids/sedatives can worsen OSA by depressing respiratory drive and reducing airway tone.</div>
+  <button class="small-btn" onclick="go('osa-reassess')">Correct course and escalate monitoring</button>
+</div>
+
+<!-- FINAL -->
+<div class="screen" id="final-priority">
+  <div class="topbar"><div class="progress">Score: <span class="score"></span> | Safety misses: <span class="misses"></span></div><div class="meter"><div class="meter-fill"></div></div></div>
+  <h1>Final Activity: Prioritize Care Across the Unit</h1>
+  <p>Rank the patient needs by immediate urgency. Drag each card into the best priority category.</p>
+  <div class="drag-bank seq-bank">
+    <div class="seq-item" draggable="true" data-answer="first" id="final1">COPD patient with drowsiness, RR 8, and oxygen therapy</div>
+    <div class="seq-item" draggable="true" data-answer="first" id="final2">Asthma patient with silent chest and rising PaCO₂</div>
+    <div class="seq-item" draggable="true" data-answer="second" id="final3">Post-op OSA patient desaturating during sleep after opioids</div>
+    <div class="seq-item" draggable="true" data-answer="second" id="final4">Pneumonia patient with new crackles, fever, and stable oxygenation</div>
+    <div class="seq-item" draggable="true" data-answer="third" id="final5">Asthma patient requesting inhaler technique review after symptoms improve</div>
+    <div class="seq-item" draggable="true" data-answer="third" id="final6">COPD patient asking about pulmonary rehab before discharge</div>
+  </div>
+  <div class="grid3">
+    <div class="priority-zone" data-accept="first" id="fpri1"><h3>Assess first: immediate threat</h3></div>
+    <div class="priority-zone" data-accept="second" id="fpri2"><h3>Assess next: unstable/needs close monitoring</h3></div>
+    <div class="priority-zone" data-accept="third" id="fpri3"><h3>Later: important teaching/discharge care</h3></div>
+  </div>
+  <button class="small-btn" onclick="checkDrop(['fpri1','fpri2','fpri3'],'fb-final-priority',25)">Check final prioritization</button>
+  <div class="feedback" id="fb-final-priority"></div>
+
+  
+  <div class="case-subsection">
+    <h3>Mini Nursing Care Plan: Choose Priority Diagnoses and Goals</h3>
+    <p>Use the patient data from the scenario to connect assessment findings with nursing diagnoses, goals, and interventions.</p>
+    <table>
+      <tr><th>Patient</th><th>Priority nursing problem</th><th>Short-term goal</th><th>Key interventions</th></tr>
+      <tr><td>Barbara/COPD</td><td><select data-answer="gas"><option value="">Choose...</option><option value="gas">Impaired gas exchange / ineffective breathing pattern</option><option value="nutrition">Readiness for enhanced nutrition only</option><option value="sleep">Disturbed sleep only</option></select></td><td><textarea placeholder="Example: maintain target SpO₂ with improved WOB and stable LOC"></textarea></td><td><textarea placeholder="List priority interventions"></textarea></td></tr>
+      <tr><td>Sarah/Asthma</td><td><select data-answer="airway"><option value="">Choose...</option><option value="airway">Ineffective airway clearance / ineffective breathing pattern</option><option value="skin">Impaired skin integrity</option><option value="fluid">Excess fluid volume</option></select></td><td><textarea placeholder="Example: improved PEF and decreased wheezing"></textarea></td><td><textarea placeholder="List priority interventions"></textarea></td></tr>
+      <tr><td>Michael/OSA</td><td><select data-answer="ventilation"><option value="">Choose...</option><option value="ventilation">Risk for impaired ventilation related to airway obstruction/sedation</option><option value="infection">Risk for infection only</option><option value="mobility">Impaired mobility only</option></select></td><td><textarea placeholder="Example: maintain airway and oxygenation during sleep"></textarea></td><td><textarea placeholder="List priority interventions"></textarea></td></tr>
+    </table>
+    <button class="small-btn" onclick="checkSelects('final-priority','fb-care-plan')">Check care plan diagnoses</button>
+    <div class="feedback" id="fb-care-plan"></div>
+  </div>
+<h3>Final Reflection Check</h3>
+  <table>
+    <tr><th>Prompt</th><th>Student response</th></tr>
+    <tr><td>What respiratory findings indicated impending failure?</td><td><textarea></textarea></td></tr>
+    <tr><td>How did reassessment change your priorities?</td><td><textarea></textarea></td></tr>
+    <tr><td>Which assumptions could lead to error in asthma, COPD, or OSA?</td><td><textarea></textarea></td></tr>
+    <tr><td>What education would reduce future respiratory deterioration?</td><td><textarea></textarea></td></tr>
+  </table>
+  <button class="small-btn" onclick="checkReflections()">Check reflections</button>
+  <div class="feedback" id="reflectionFeedback"></div>
+  <button class="small-btn" onclick="go('debrief')">Finish and View Debrief</button>
+</div>
+
+<div class="screen" id="debrief">
+  <div class="topbar"><div class="progress">Final score: <span class="score"></span> | Safety misses: <span class="misses"></span></div><div class="meter"><div class="meter-fill"></div></div></div>
+  <h1>Scenario Debrief</h1>
+  <div class="box good">
+    <h3>Core Clinical Reasoning Takeaways</h3>
+    <ul>
+      <li>Prioritize patients with severe hypoxemia, altered LOC, reduced RR, silent chest, or rising PaCO₂.</li>
+      <li>In COPD, SpO₂ improvement alone is not enough; ventilation, mental status, pH, and PaCO₂ matter.</li>
+      <li>In asthma, silent chest and rising PaCO₂ are late danger signs.</li>
+      <li>In OSA, opioids and sedatives can worsen airway obstruction and respiratory depression.</li>
+      <li>Focused respiratory assessment includes inspection, palpation, percussion, auscultation, tactile fremitus, and voice sounds.</li>
+      <li>Teaching matters after stabilization: inhaler technique, asthma action plans, CPAP adherence, smoking cessation, vaccines, pulmonary rehab, and return precautions.</li><li>Pharmacology decisions must connect medication purpose, nursing considerations, side effects, and reassessment findings.</li><li>Lab and diagnostic interpretation should always be connected to nursing implications and anticipated actions.</li>
+    </ul>
+  </div>
+  <button class="small-btn" onclick="restart()">Restart Scenario</button>
+</div>
+
+</div>
+
+<script>
+let totalScore=0, safetyMisses=0;
+let awarded=new Set();
+function update(){
+  document.querySelectorAll('.score').forEach(x=>x.textContent=totalScore);
+  document.querySelectorAll('.misses').forEach(x=>x.textContent=safetyMisses);
+  let pct=Math.min(100, Math.round(totalScore/270*100));
+  document.querySelectorAll('.meter-fill').forEach(x=>x.style.width=pct+'%');
+}
+function score(points,key){ if(key && awarded.has(key)) return; if(key) awarded.add(key); totalScore+=points; update(); }
+function miss(){ safetyMisses++; update(); }
+function go(id){
+  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  shuffleAnswers(document.getElementById(id));
+  window.scrollTo(0,0); update();
+}
+function restart(){ totalScore=0;safetyMisses=0;awarded=new Set(); document.querySelectorAll('textarea,input').forEach(x=>x.value=''); document.querySelectorAll('select').forEach(x=>x.value=''); document.querySelectorAll('.feedback').forEach(x=>x.classList.remove('show')); go('intro');}
+function shuffleAnswers(root=document){
+  root.querySelectorAll('.answer-container').forEach(container=>{
+    let items=Array.from(container.children);
+    for(let i=items.length-1;i>0;i--){let j=Math.floor(Math.random()*(i+1));[items[i],items[j]]=[items[j],items[i]];}
+    items.forEach(i=>container.appendChild(i));
+  });
+}
+function showRubric(id,text){let b=document.getElementById(id); b.innerHTML='<strong>Guidance:</strong> '+text; b.classList.add('show'); score(5,id);}
+function checkSelects(screenId,fb){
+  let screen=document.getElementById(screenId); let selects=screen.querySelectorAll('select[data-answer]');
+  let correct=0, complete=true; selects.forEach(s=>{if(!s.value) complete=false; if(s.value===s.dataset.answer){correct++;s.style.borderColor='green'}else{s.style.borderColor='red'}});
+  let box=document.getElementById(fb); box.classList.add('show');
+  if(!complete){box.innerHTML='<strong>Not complete yet.</strong> Complete each interpretation first.'; return;}
+  if(correct===selects.length){box.innerHTML='<strong>Correct.</strong> Your interpretation matches the expected clinical reasoning.'; score(10,fb);}
+  else{box.innerHTML='<strong>Review needed.</strong> Reconsider the assessment indicators, pathophysiology, and priority risk.'; miss();}
+}
+let dragged=null;
+document.addEventListener('dragstart',e=>{if(e.target.classList.contains('drag-item')||e.target.classList.contains('seq-item')) dragged=e.target;});
+document.addEventListener('dragover',e=>{if(e.target.closest('.drop-zone,.priority-zone,.drag-bank')){e.preventDefault(); let z=e.target.closest('.drop-zone,.priority-zone,.drag-bank'); z.classList.add('over');}});
+document.addEventListener('dragleave',e=>{let z=e.target.closest('.drop-zone,.priority-zone,.drag-bank'); if(z) z.classList.remove('over');});
+document.addEventListener('drop',e=>{let z=e.target.closest('.drop-zone,.priority-zone,.drag-bank'); if(z && dragged){e.preventDefault(); z.classList.remove('over'); z.appendChild(dragged);}});
+function checkDrop(ids,fb){
+  let totalPlaced=0, correct=0, expectedTotal=0;
+  const acceptedAnswers = new Set();
+
+  ids.forEach(id=>{
+    let zone=document.getElementById(id);
+    let accepts=(zone.dataset.accept||'').split(',').filter(Boolean);
+    accepts.forEach(a=>acceptedAnswers.add(a));
+  });
+
+  // Count all cards in the whole document that belong to this activity's accepted categories.
+  // This prevents a "correct" result when only one right card is moved.
+  document.querySelector('.screen.active').querySelectorAll('.drag-item,.seq-item').forEach(item=>{
+    if(acceptedAnswers.has(item.dataset.answer)) expectedTotal++;
+  });
+
+  ids.forEach(id=>{
+    let zone=document.getElementById(id);
+    let accept=(zone.dataset.accept||'').split(',').filter(Boolean);
+    zone.querySelectorAll('.drag-item,.seq-item').forEach(item=>{
+      totalPlaced++;
+      if(accept.includes(item.dataset.answer)){
+        correct++;
+        item.style.borderColor='green';
+      }else{
+        item.style.borderColor='red';
+      }
+    });
+  });
+
+  let box=document.getElementById(fb);
+  box.classList.add('show');
+
+  if(totalPlaced < expectedTotal){
+    box.innerHTML='<strong>Not complete yet.</strong> Move all cards for this activity into the categories before checking. You have placed '+totalPlaced+' of '+expectedTotal+' required cards.';
+    return;
+  }
+
+  if(correct===expectedTotal && totalPlaced===expectedTotal){
+    box.innerHTML='<strong>Correct.</strong> You organized all cues/interventions appropriately.';
+    score(10,fb);
+  }else{
+    box.innerHTML='<strong>Review needed.</strong> Some cards are not in the safest category. Recheck urgency, physiology, and nursing priorities.';
+    miss();
+  }
+}
+function checkReflections(){
+  let areas=document.querySelectorAll('#final-priority textarea'); let complete=0;
+  areas.forEach(a=>{if(a.value.trim().length>=30){complete++;a.style.borderColor='green'}else{a.style.borderColor='red'}});
+  let fb=document.getElementById('reflectionFeedback'); fb.classList.add('show');
+  if(complete===areas.length){fb.innerHTML='<strong>Complete reflection.</strong> Responses include enough detail for formative review. Strong responses should name specific cues, explain their meaning, identify nursing priorities, and include reassessment/escalation.'; score(10,'reflection');}
+  else{fb.innerHTML='<strong>Reflection needs expansion.</strong> Add specific assessment findings, what they mean, what nursing action is needed, and how reassessment changes priorities.'; miss();}
+}
+
+function checkClinicalReasoning(textareaId, keywords, feedbackId, excellentText, improveText){
+  const textarea = document.getElementById(textareaId);
+  const response = textarea.value.toLowerCase().trim();
+
+  let matched = 0;
+
+  keywords.forEach(word => {
+    if(response.includes(word.toLowerCase())){
+      matched++;
+    }
+  });
+
+  const scorePercent = matched / keywords.length;
+  const fb = document.getElementById(feedbackId);
+  fb.classList.add('show');
+
+  if(response.length < 25){
+    textarea.style.borderColor = 'red';
+    fb.innerHTML = '<strong>Response too brief.</strong> Add assessment interpretation, nursing priorities, escalation needs, and rationale.';
+    return;
+  }
+
+  if(scorePercent >= 0.6){
+    textarea.style.borderColor = 'green';
+    fb.innerHTML = excellentText;
+    score(5, feedbackId);
+  } else {
+    textarea.style.borderColor = 'orange';
+    fb.innerHTML = improveText + '<br><br><strong>Potential concepts to include:</strong> ' + keywords.join(', ');
+    miss();
+  }
+}
+
+function randomizeSelectOptions(){
+  document.querySelectorAll('select').forEach(select => {
+
+    const placeholder = select.options[0];
+    let options = Array.from(select.options).slice(1);
+
+    // Shuffle all answer options
+    for(let i = options.length - 1; i > 0; i--){
+      const j = Math.floor(Math.random() * (i + 1));
+      [options[i], options[j]] = [options[j], options[i]];
+    }
+
+    // Prevent correct answer from appearing first after placeholder
+    const correctAnswer = select.dataset.answer;
+
+    if(options.length > 1 && options[0].value === correctAnswer){
+      let swapIndex = Math.floor(Math.random() * (options.length - 1)) + 1;
+      [options[0], options[swapIndex]] = [options[swapIndex], options[0]];
+    }
+
+    select.innerHTML = '';
+    select.appendChild(placeholder);
+
+    options.forEach(opt => {
+      select.appendChild(opt);
+    });
+  });
+}
+
+shuffleAnswers();
+randomizeSelectOptions();
+update();
+</script>
+</body>
+</html>
